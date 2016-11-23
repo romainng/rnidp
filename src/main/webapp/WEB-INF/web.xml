@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	
+
+	
+	
+
+<servlet>
+		<display-name>SAMLProvider</display-name>
+		<servlet-name>SAMLProvider</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.SAMLProvider</servlet-class>
+		<load-on-startup>1</load-on-startup>
+  	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>AccessFormSpServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.AccessFormSpServlet</servlet-class>	
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>ManagementSpServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.ManagementSpServlet</servlet-class>	
+	</servlet>
+
+	<servlet>
+		<servlet-name>MeServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.MeServlet</servlet-class>	
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SAMLProvider</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AccessFormSpServlet</servlet-name>
+		<url-pattern>/management</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ManagementSpServlet</servlet-name>
+		<url-pattern>/added</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet-mapping>
+		<servlet-name>MeServlet</servlet-name>
+		<url-pattern>/me</url-pattern>
+	</servlet-mapping>	
+	
+	
+	<listener>
+   		<listener-class>com.renault.rnet.idp.servlet.SAMLProvider</listener-class>
+	</listener>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<!--<realm-name>java:/jaas/idp-secure</realm-name>-->
+	</login-config>
+	<security-role>
+		<role-name>all_authenticated</role-name>
+	</security-role>
+
+<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>all</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>all_authenticated</role-name>
+		</auth-constraint>
+</security-constraint>
+
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+
+<context-param>
+	<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+	<param-value>resources.lang.text</param-value>
+</context-param>
+
+
+</web-app>

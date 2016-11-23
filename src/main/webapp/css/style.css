@@ -1,0 +1,128 @@
+body{
+	background-color: #f3f3f3;
+	border-left: solid 1px;
+	border-top : solid 1px;
+	margin: 0;
+	min-height: 100vh;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+textarea {
+	resize: none;
+}
+
+[readonly] {
+	background-color: #e6e6e6;
+}
+
+#confirmationdataModWarn, #conditionsnotbeforeModWarn,
+	#conditionnotonorafterModWarn, #spnameModWarn, #issuerurlModifWarn,
+	#spnameAddWarn, #issuerurlAddWarn, #confirmationdataAddWarn,
+	#conditionsnotbeforeAddWarn, #conditionnotonorafterAddWarn,
+	#spnameAddWarnDup, #datarecipientWarn, #audienceuriWarn, #datarecipientWarnMod, #listSP {
+	font-size: smaller;
+	color: red;
+	visibility: hidden;
+}
+
+
+
+#left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#right {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow : scroll;
+    overflow-x: hidden
+}
+
+.checkform{
+	width:480px;
+	height:80px;
+	border-style: solid ;
+	border-width: 1px;
+	border-color: black;
+}
+
+.checkform label{
+	font-size: 80%;
+}
+
+label.checkclass{
+display: inline-block;
+}
+
+.backgrey{
+	color: grey;
+}
+
+fieldset{
+	margin-bottom: 15px;
+	width: 500px;
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin-left: auto;
+	margin-right: auto;
+	border-color: #2f72a1;
+    	
+}
+
+legend{
+	text-decoration: underline;
+	font-weight: bold;
+	text-align: center;
+	color: #2f72a1;
+}
+
+fieldset label{
+	margin: 2px;
+	margin-right: 20px;
+}
+
+fieldset input{
+	 margin-left: auto;
+margin-right: auto;
+}
+
+a.info{
+	text-decoration: none;
+}
+
+a.info span{
+	display : none;
+	font-size : 12px;
+}
+
+a.info:hover {
+	 background: none; 
+	 z-index: 500;
+	 cursor: help;
+}         
+
+a.info:hover span {
+   display: inline; /* On affiche l'infobulle. */
+   position: absolute;
+
+   white-space: nowrap; 
+
+    border-radius: 5px;
+   background: #d7d7d7;
+
+   color: green;
+   padding: 3px;
+
+   border: 1px solid #3f3f3f;
+   border-left: 2px solid #3f3f3f;
+}
+
+
+
