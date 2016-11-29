@@ -35,7 +35,7 @@ public class ServiceProviderAdder {
 	private final static String PROFILES = ".Profiles=";
 	private final static String ADMINISTRATORS = ".Administrators=";
 
-	private static final String TEMPFILEPATH = "D:\\LocalData\\p083925\\Desktop\\renaultMaven\\renaultIdp\\src\\test\\resources\\config\\myTempFile.txt";
+	private static final String TEMPFILEPATH = "..\\myTempFile.txt";
 	private static final org.slf4j.Logger log = LoggerFactory.getLogger(ServiceProviderAdder.class);
 
 	/**

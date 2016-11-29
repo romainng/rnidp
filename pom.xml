@@ -15,7 +15,7 @@
       <artifactId>junit</artifactId>
       <version>4.10</version>
       <scope>system</scope>         
-      <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\junit-4.10.jar</systemPath>
+      <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\junit-4.10.jar</systemPath>
     </dependency>	
 	
 	<dependency>
@@ -23,7 +23,7 @@
          <artifactId>jstl</artifactId>
          <scope>system</scope>
          <version>1.2</version>
-         <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\jstl-1.2.jar</systemPath>
+         <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\jstl-1.2.jar</systemPath>
      </dependency>	
 
 	<dependency>
@@ -31,7 +31,7 @@
          <artifactId>rna</artifactId>
          <scope>system</scope>
          <version>1.167</version>
-         <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\rna_v1.167.jar</systemPath>
+         <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\rna_v1.167.jar</systemPath>
      </dependency>	     
      
 
@@ -40,7 +40,7 @@
     	<artifactId>javax.servlet-api</artifactId>
     	<scope>system</scope>
     	<version>3.1.0</version>
-    	  <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\servlet-api.jar</systemPath>
+    	  <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\servlet-api.jar</systemPath>
 	</dependency>
 	
 	
@@ -49,7 +49,7 @@
     <artifactId>logback-core</artifactId>
     <scope>system</scope>
     <version>1.1.7</version>
-        	  <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\logback-core-1.1.7.jar</systemPath>
+        	  <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\logback-core-1.1.7.jar</systemPath>
 </dependency>
 
 <dependency>
@@ -57,7 +57,7 @@
     <artifactId>logback-classic</artifactId>
     <scope>system</scope>
     <version>1.1.7</version>
-            	  <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\logback-classic-1.1.7.jar</systemPath>
+            	  <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\logback-classic-1.1.7.jar</systemPath>
     
 </dependency>
 
@@ -66,7 +66,7 @@
     <artifactId>slf4j-api</artifactId>
     <scope>system</scope>
     <version>1.7.21</version>
-    <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\slf4j-api-1.7.21.jar</systemPath>
+    <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\slf4j-api-1.7.21.jar</systemPath>
 </dependency>
 
 <dependency>
@@ -141,7 +141,7 @@
     <artifactId>commons-codec</artifactId>
      <scope>system</scope>
     <version>1.7</version>
-     <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\commons-codec-1.7.jar</systemPath>
+     <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\commons-codec-1.7.jar</systemPath>
 </dependency>
 
 <dependency>
@@ -149,7 +149,7 @@
     <artifactId>json</artifactId>
      <scope>system</scope>
     <version>20140107</version>
-      <systemPath>D:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\org.json.jar</systemPath>
+      <systemPath>d:\LocalData\p083925\Desktop\renaultMaven\renaultIdp\src\main\webapp\WEB-INF\lib\org.json.jar</systemPath>
 </dependency>
 
 
@@ -157,7 +157,7 @@
   
   
   <build>
-    <finalName>renaultIdp</finalName>
+    <finalName>rnz_idp2</finalName>
 
 	<plugins>
 
@@ -188,7 +188,7 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.2</version>
 			<configuration>
-				<path>/renaultIdp</path>
+				<path>/rnz_idp2</path>
 			</configuration>
 		  </plugin>
 		  

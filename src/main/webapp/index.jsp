@@ -86,7 +86,7 @@
 	if (top.location != self.location) {
 		//top.location.href = self.location.href;
 
-		top.location.href = "/renaultIdp/";
+		top.location.href = "/rnz_idp2/";
 	}
 </script>
 
@@ -157,7 +157,7 @@
 														</c:forEach>
 
 														<tr class="VecturyMenu2TR">
-															<td><a class="VecturyMenu2TR" href="/renaultIdp/me"
+															<td><a class="VecturyMenu2TR" href="/rnz_idp2/me"
 																target="body"><fmt:message key="me.label" /></a></td>
 														</tr>
 

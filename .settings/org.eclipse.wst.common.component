@@ -4,33 +4,6 @@
     <property name="context-root" value="renaultIdp"/>
     <wb-resource deploy-path="/" source-path="src/main/webapp"/>
     <property name="java-output-path" value="/target/classes"/>
-    <dependent-module archiveName="junit-4.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/junit-4.10.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/jstl-1.2.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="rna_v1.167.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/rna_v1.167.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="servlet-api.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/servlet-api.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="logback-core-1.1.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/logback-core-1.1.7.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="logback-classic-1.1.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/logback-classic-1.1.7.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="slf4j-api-1.7.21.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/slf4j-api-1.7.21.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="commons-codec-1.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/commons-codec-1.7.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
-    <dependent-module archiveName="org.json.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/src/main/webapp/WEB-INF/lib/org.json.jar">
-      <dependency-type>uses</dependency-type>
-    </dependent-module>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/java"/>
     <wb-resource deploy-path="/WEB-INF/classes" source-path="src/main/resources"/>
   </wb-module>

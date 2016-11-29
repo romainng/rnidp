@@ -17,7 +17,7 @@ public class ResourcesPaths {
 	// private static final String CONFIG_PATH =
 	// "E:\\workspaceUsb\\renaultIdp\\WebContent\\config\\sp.config";
 	private String CONFIG_PATH = "\\resources\\config\\sp.config";
-
+	
 	// private static final String PROPERTIES_PATH =
 	// "E:\\workspaceUsb\\renaultIdp\\WebContent\\config\\sp.properties";
 	/**
@@ -45,12 +45,13 @@ public class ResourcesPaths {
 		return this.contextPath+CERTIFICATES_prodExtVecturySignature01_PATH;
 	}
 
+	/*
 	public String getCertificatesPreprodextvecturysignature01Ext01Path() {
 		return this.contextPath+CERTIFICATES_preprodExtVecturySignature01_ext01_PATH;
 	}
 
 	private final String CERTIFICATES_preprodExtVecturySignature01_ext01_PATH = "E:\\workspaceUsb\\renaultIdp\\WebContent\\certificates\\preprodExtVecturySignature01-ext01.p12";
-
+*/
 	public String getConfigPath() {
 		return this.contextPath+CONFIG_PATH;
 	}

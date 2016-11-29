@@ -8,6 +8,7 @@
 // CSS color for IHM warnings
 var WARN_COLOR = "red";
 var sentence="confirmation";
+var rootPath= "rnz_idp2";
 // var context = "http://localhost:8080";
 
 /**
@@ -16,7 +17,7 @@ var sentence="confirmation";
 var changeLocale = function(language) {
 	
 	$.ajax({
-		url : "/renaultIdp/home",
+		url : "/"+rootPath+"/home",
 		method : 'post',
 		data : "language=" + language,
 		success : function(msg) {
@@ -184,7 +185,7 @@ $('#selectModifySp').change(
 		function() {
 
 			$.ajax({
-				url : '/renaultIdp/added',
+				url : '/'+rootPath+'/added',
 				method : 'get',
 				data : {
 					action : "getVal",

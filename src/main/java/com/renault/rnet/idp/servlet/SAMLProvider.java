@@ -50,6 +50,9 @@ import com.renault.rnet.idp.ldap.LdapException;
 @WebServlet(name = "SAMLProvider", loadOnStartup = 1, urlPatterns = { "/SAMLProvider" })
 public class SAMLProvider extends HttpServlet {
 
+	String serviceProviderXMLPath= null;
+	
+	
 	String realPath;
 	private static final String SAML_RESPONSE = "SAMLResponse";
 	SAMLHandler mySAMLHandler = null;
@@ -180,7 +183,7 @@ public class SAMLProvider extends HttpServlet {
 				// encoded:"+EncodedSignedSamlRequestAsString);
 
 				response.setStatus(HttpServletResponse.SC_OK);
-
+				
 				PrintWriter out = null;
 				out = response.getWriter();
 
@@ -197,9 +200,23 @@ public class SAMLProvider extends HttpServlet {
 				}
 				out.print("</FORM>");
 				out.print("</BODY></HTML>");
-
 				out.close();
 
+				
+				StringBuilder strb = new StringBuilder();
+				strb.append("<HTML><BODY onload=VECTURYFORM.submit();>");
+				strb.append("<FORM NAME=\"VECTURYFORM\" METHOD=\"POST\" ACTION=" + serviceProvidersList.getSamlHandlers()
+						.get(this.parameter.getSp()).getConfirmationDataRecipient() + ">");
+				strb.append("<INPUT TYPE=hidden NAME=\"" + SAML_RESPONSE + "\" VALUE=\""
+						+ EncodedSignedSamlRequestAsString + "\">");
+				if (serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate() != null) {
+					strb.append("<INPUT TYPE=hidden NAME=\"" + RELAY_STATE + "\" VALUE=\""
+							+ serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate()
+							+ "\">");
+				}
+				System.out.println();
+				System.out.println(strb.toString());
+				
 			} else {
 				log.error("User " + this.parameter.getUid() + " not registered");
 			}
@@ -271,8 +288,12 @@ public class SAMLProvider extends HttpServlet {
 
 		log.debug("(Init) check all the Handlers process");
 
-		this.serviceProvidersList = new ServiceProvidersList(realPath);
 
+		//this.serviceProvidersList = new ServiceProvidersList(realPath);
+		this.serviceProviderXMLPath = properties.getProperty("serviceProviders.path");
+		servletC.setAttribute("serviceProviderXmlPath", this.serviceProviderXMLPath);
+		this.serviceProvidersList = new ServiceProvidersList(properties.getProperty("serviceProviders.path"));
+		
 		int handlersCount = 1;
 		for (Entry<String, ServiceProviderProperties> h : this.serviceProvidersList.getSamlHandlers().entrySet()) {
 			log.debug("Handler number " + handlersCount + " service provider name=" + h.getKey());
@@ -290,7 +311,7 @@ public class SAMLProvider extends HttpServlet {
 
 		try {
 			this.signer = new OpenSAMLSigner(properties.getProperty("keystore.path"),
-					properties.getProperty("keystore.password"), properties.getProperty("keystore.type"));
+					properties.getProperty("keystore.password"), properties.getProperty("keystore.type"));			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

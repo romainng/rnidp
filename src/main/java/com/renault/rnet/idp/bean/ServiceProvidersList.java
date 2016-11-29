@@ -25,7 +25,7 @@ public class ServiceProvidersList {
 	private Map<String, ServiceProviderProperties> samlHandlers = new HashMap<String, ServiceProviderProperties>();
 
 	public ServiceProvidersList(String contextPath) {
-
+/*
 		RNConfig propertiesFile = null;
 
 		String prop_path = System.getProperty("app.properties");
@@ -34,12 +34,16 @@ public class ServiceProvidersList {
 			ResourcesPaths paths = new ResourcesPaths(contextPath);
 			prop_path = paths.getPropertiesPath();
 			
-		}
-
-		if (prop_path.endsWith(".xml")) {
+		}*/
+		
+		
+		
+		if (contextPath.endsWith(".xml")) {
 			ServiceProvidersParser spParser = new ServiceProvidersParser();
-			this.samlHandlers = spParser.parseXML(prop_path);
-		} else {
+			this.samlHandlers = spParser.parseXML(contextPath);
+		}else{
+			System.out.println("FILE NOT PARSED");
+		}/*else {
 			try {
 				propertiesFile = new RNConfig(prop_path);
 				log.info("file properties loaded path: " + prop_path);
@@ -48,7 +52,7 @@ public class ServiceProvidersList {
 				log.error("Constructor : RNconfig object instanciation (properties file)");
 				e.printStackTrace();
 			}
-		}
+		}*/
 
 	}
 

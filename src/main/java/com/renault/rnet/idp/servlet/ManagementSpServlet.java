@@ -33,7 +33,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private ServiceProvidersList handlers = null;
 	private ServletContext sc;
-	private ResourcesPaths paths;
+	//private ResourcesPaths paths;
 	/**
 	 * 
 	 */
@@ -54,7 +54,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 		
 		Object attribute = sc.getAttribute("handlers");
-		paths = new ResourcesPaths((String) sc.getAttribute("path"));
+		//paths = new ResourcesPaths((String) sc.getAttribute("serviceProviderXmlPath"));
 		if (attribute instanceof ServiceProvidersList && attribute != null) {
 			this.handlers = (ServiceProvidersList) attribute;
 
@@ -108,7 +108,8 @@ public class ManagementSpServlet extends HttpServlet {
 	}
 
 	private void delProcess(String spToDel) {
-		ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+		//ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+		ServiceProviderXMLManage spXML = new ServiceProviderXMLManage((String)this.sc.getAttribute("serviceProviderXmlPath"));
 		spXML.delSpXML(spToDel);
 
 		if (this.handlers != null) {
@@ -124,7 +125,7 @@ public class ManagementSpServlet extends HttpServlet {
 	private void addProccess(HttpServletRequest request, boolean isModify) {
 		ServiceProviderProperties createServiceProviderProperties = null;
 		String spname = null;
-		String contextPath = (String) sc.getAttribute("path");
+		String contextPath = (String) sc.getAttribute("serviceProviderXmlPath");
 		this.handlers = new ServiceProvidersList(contextPath);
 		if (isModify) {
 			log.debug("Modify a Service provider");
@@ -232,7 +233,8 @@ public class ManagementSpServlet extends HttpServlet {
 			createServiceProviderProperties.setConditionsNotOnOrAfter(Integer.valueOf(conditionnotonorafter));
 
 			if (isModify) {
-				ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+				//ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+				ServiceProviderXMLManage spXML = new ServiceProviderXMLManage((String)this.sc.getAttribute("serviceProviderXmlPath"));
 				spXML.modifySPXML(createServiceProviderProperties);
 
 				if (this.handlers != null) {
@@ -249,7 +251,8 @@ public class ManagementSpServlet extends HttpServlet {
 						createServiceProviderProperties);
 
 				// ServiceProviderAdder.addServiceProvider(ResourcesPaths.getPropertiesPath(),createServiceProviderProperties);
-				ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+				//ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(paths.getPropertiesPath());
+				ServiceProviderXMLManage spXML = new ServiceProviderXMLManage((String)this.sc.getAttribute("serviceProviderXmlPath"));
 				spXML.addSPXML(createServiceProviderProperties);
 				log.info("SUCCES create Service provider :" + createServiceProviderProperties.getSpName());
 
