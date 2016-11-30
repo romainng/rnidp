@@ -157,7 +157,7 @@
   
   
   <build>
-    <finalName>rnz_idp2</finalName>
+    <finalName>rnz_idp</finalName>
 
 	<plugins>
 
@@ -188,7 +188,7 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.2</version>
 			<configuration>
-				<path>/rnz_idp2</path>
+				<path>/rnz_idp</path>
 			</configuration>
 		  </plugin>
 		  

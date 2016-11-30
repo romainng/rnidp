@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,6 +19,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.renault.rnet.idp.bean.ServiceProviderProperties;
+import com.renault.rnet.idp.bean.ServiceProvidersList;
 
 /**
  * Parse Service providers xml file 
@@ -38,6 +40,9 @@ public class ServiceProvidersParser {
 	private final String Administrators = "Administrators";
 	private final String SP_NAME_XML = "name";
 
+	private final org.slf4j.Logger log = LoggerFactory.getLogger(ServiceProvidersParser.class);
+
+	
 	public ServiceProvidersParser(){
 		
 	}
@@ -46,6 +51,7 @@ public class ServiceProvidersParser {
 		final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		HashMap<String, ServiceProviderProperties> handlers = null;
 		try {
+			log.info("START PARSING SP XML");
 			final DocumentBuilder builder = factory.newDocumentBuilder();
 			final Document document = builder.parse(new File(path));
 

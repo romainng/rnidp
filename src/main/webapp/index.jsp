@@ -86,7 +86,7 @@
 	if (top.location != self.location) {
 		//top.location.href = self.location.href;
 
-		top.location.href = "/rnz_idp2/";
+		top.location.href = "/rnz_idp/";
 	}
 </script>
 
@@ -152,12 +152,12 @@
 
 															<tr class="VecturyMenu3TR">
 																<td class="VecturyMenu3TR"><a
-																	href="<c:url value="/home?sp=${item}"/>" target="body">${item}</a></td>
+																	href="<c:url value="/home?sp=${item}"/>" >${item}</a></td>
 															</tr>
 														</c:forEach>
 
 														<tr class="VecturyMenu2TR">
-															<td><a class="VecturyMenu2TR" href="/rnz_idp2/me"
+															<td><a class="VecturyMenu2TR" href="/rnz_idp/me"
 																target="body"><fmt:message key="me.label" /></a></td>
 														</tr>
 

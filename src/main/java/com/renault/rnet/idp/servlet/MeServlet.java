@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
+
 import com.renault.rnet.idp.bean.MeBean;
+import com.renault.rnet.idp.bean.ServiceProvidersList;
 import com.renault.rnet.idp.ldap.LdapConnector;
 
 /**
@@ -29,6 +32,8 @@ public class MeServlet extends HttpServlet {
 	private ServletContext servletC;
 	private MeBean meBean = null;
 
+	private final org.slf4j.Logger log = LoggerFactory.getLogger(MeServlet.class);
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -41,11 +46,12 @@ public class MeServlet extends HttpServlet {
 		servletC = getServletContext();
 		Principal _userPrincipal = request.getUserPrincipal();
 		uid = _userPrincipal.getName();
-
+		log.debug("UID ="+uid+" user principal="+_userPrincipal);
+		
 		// FOR TEST PURPOSE
 		//uid = "a189564";
 		//uid = "p083925";
-		System.out.println(servletC.getAttribute("ldapctx").toString());
+		//System.out.println(servletC.getAttribute("ldapctx").toString());
 
 
 		
@@ -58,6 +64,9 @@ public class MeServlet extends HttpServlet {
 			System.out.println("info="+myLDAPAttributes);
 			request.setAttribute("myUid", uid);
 			request.setAttribute("myInfo", myLDAPAttributes.trim().split(System.lineSeparator()));
+		}else{
+			this.log.error("fail to fetch ldap contex in servlet context");
+			
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/me.jsp").forward(request, response);
 		

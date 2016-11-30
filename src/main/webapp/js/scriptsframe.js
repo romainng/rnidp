@@ -8,7 +8,7 @@
 // CSS color for IHM warnings
 var WARN_COLOR = "red";
 var sentence="confirmation";
-var rootPath= "rnz_idp2";
+var rootPath= "rnz_idp";
 // var context = "http://localhost:8080";
 
 /**

@@ -261,7 +261,7 @@ public class SAMLProvider extends HttpServlet {
 		ResourcesPaths paths = new ResourcesPaths(realPath);
 		Properties properties = new Properties();
 
-		String prop_path = System.getProperty("app.properties");
+		String prop_path = System.getProperty("app.configurationFile");
 
 		if ((prop_path == null) || (prop_path.length() == 0)) {
 			try {
@@ -291,7 +291,12 @@ public class SAMLProvider extends HttpServlet {
 
 		//this.serviceProvidersList = new ServiceProvidersList(realPath);
 		this.serviceProviderXMLPath = properties.getProperty("serviceProviders.path");
+		log.info("Service provider XML path ="+this.serviceProviderXMLPath);
 		servletC.setAttribute("serviceProviderXmlPath", this.serviceProviderXMLPath);
+		
+		
+		
+		
 		this.serviceProvidersList = new ServiceProvidersList(properties.getProperty("serviceProviders.path"));
 		
 		int handlersCount = 1;
@@ -310,10 +315,11 @@ public class SAMLProvider extends HttpServlet {
 		// this.idpConfig = new IdpConfig(realPath);
 
 		try {
+			log.info("Try get signer at "+properties.getProperty("keystore.path"));
 			this.signer = new OpenSAMLSigner(properties.getProperty("keystore.path"),
 					properties.getProperty("keystore.password"), properties.getProperty("keystore.type"));			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			log.info("Failed to get signer at "+properties.getProperty("keystore.path"));
 			e1.printStackTrace();
 		}
 

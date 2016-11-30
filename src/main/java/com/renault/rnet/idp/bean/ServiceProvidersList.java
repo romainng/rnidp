@@ -37,12 +37,15 @@ public class ServiceProvidersList {
 		}*/
 		
 		
-		
+		log.info("Trying fetch service providers xml file at "+contextPath);
 		if (contextPath.endsWith(".xml")) {
+			
 			ServiceProvidersParser spParser = new ServiceProvidersParser();
 			this.samlHandlers = spParser.parseXML(contextPath);
+			log.info("SP xml Parsed succesfully");
 		}else{
-			System.out.println("FILE NOT PARSED");
+			log.info("SP xml Parsing failed path="+ contextPath);
+
 		}/*else {
 			try {
 				propertiesFile = new RNConfig(prop_path);
