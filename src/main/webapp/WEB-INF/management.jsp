@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<form id="formAdd" action="/rnz_idp2/added" method="post">
+	<form id="formAdd" action="/rnz_idp/added" method="post">
 
 		<fieldset>
 			<legend>
@@ -97,7 +97,7 @@
 	</form>
 
 
-	<form id="formMod" action="/rnz_idp2/added" method="post">
+	<form id="formMod" action="/rnz_idp/added" method="post">
 		<fieldset>
 			<legend>
 				<fmt:message key="modtitle.manage.label" />
@@ -180,7 +180,7 @@
 	</form>
 
 
-	<form id="delform" action="/rnz_idp2/added" method="post">
+	<form id="delform" action="/rnz_idp/added" method="post">
 		<fieldset>
 			<legend>
 				<fmt:message key="deltitle.manage.label" />

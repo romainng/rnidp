@@ -167,6 +167,13 @@
 															</a></td>
 														</tr>
 
+
+
+														<tr class="VecturyMenu2TR">
+															<td><a class="VecturyMenu2TR" href="/rnz_idp/logapp"
+																target="body">Logs</a></td>
+														</tr>
+														
 														<tr class="VecturyMenu2TR" id="lang">
 															<td><label><fmt:message key="lang.label" />
 																	:</label> <img id="langfr" src="img/fr.png" height="13"
@@ -174,6 +181,9 @@
 																id="langen" src="img/en.png" height="13" width="18"
 																onclick="changeLocale('en')" /></td>
 														</tr>
+														
+														
+														
 													</tbody>
 												</table>
 											</td>
@@ -185,9 +195,7 @@
 									<tbody>
 										<tr class="VecturyMenu0TR" id="trIdMenuVecturyAbout">
 											<td class="VecturyMenu0TD" id="tdIdMenuVecturyAbout"><span
-												class="VecturyLeftVersionSpan">Version <a>0.1</a><br />
-													Credits <a href="nicolas.friant@renault.com">N.Friand</a> ,
-													<a href="romain.ng-extern@renault.com">R.Ng</a>
+												class="VecturyLeftVersionSpan">Version <a>0.1</a><br/>
 											</span></td>
 										</tr>
 									</tbody>

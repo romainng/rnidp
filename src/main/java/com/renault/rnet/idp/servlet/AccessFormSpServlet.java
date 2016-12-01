@@ -38,12 +38,16 @@ public class AccessFormSpServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {		
-		log.debug("redirect to add service provider form");
+
+		log.debug("redirect to management form");
 		sc = getServletContext();
 		Object attribute = sc.getAttribute("handlers");
 
 		if (attribute instanceof ServiceProvidersList && attribute != null) {
 			this.handlers = (ServiceProvidersList) attribute;
+			log.debug("Handlers fetched from context in AccesForm servlet");
+		}else{
+			log.error("Handlers not fetched from context in Form servlet");
 		}
 		sc.setAttribute("spitem", this.handlers.getSamlHandlers().keySet());
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/management.jsp");

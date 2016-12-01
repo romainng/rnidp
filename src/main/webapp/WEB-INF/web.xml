@@ -31,6 +31,12 @@
 		<servlet-name>MeServlet</servlet-name>
 		<servlet-class>com.renault.rnet.idp.servlet.MeServlet</servlet-class>	
 	</servlet>
+	
+		<servlet>
+		<servlet-name>LogServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.LogServlet</servlet-class>	
+	</servlet>
+	
 
 	<servlet-mapping>
 		<servlet-name>SAMLProvider</servlet-name>
@@ -52,6 +58,11 @@
 		<url-pattern>/me</url-pattern>
 	</servlet-mapping>	
 	
+	
+		<servlet-mapping>
+		<servlet-name>LogServlet</servlet-name>
+		<url-pattern>/logapp</url-pattern>
+	</servlet-mapping>
 	
 	<listener>
    		<listener-class>com.renault.rnet.idp.servlet.SAMLProvider</listener-class>
@@ -80,6 +91,7 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
 
 
 <context-param>

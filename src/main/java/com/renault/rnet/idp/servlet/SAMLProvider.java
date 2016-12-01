@@ -40,6 +40,7 @@ import com.renault.rnet.idp.controller.SAMLHandler;
 import com.renault.rnet.idp.controller.URLParameters;
 import com.renault.rnet.idp.ldap.LdapConnector;
 import com.renault.rnet.idp.ldap.LdapException;
+import com.renault.rnet.idp.log.LogManagement;
 
 /**
  * Renault Identity Provider main Servlet
@@ -51,7 +52,7 @@ import com.renault.rnet.idp.ldap.LdapException;
 public class SAMLProvider extends HttpServlet {
 
 	String serviceProviderXMLPath= null;
-	
+	LogManagement logManagement;
 	
 	String realPath;
 	private static final String SAML_RESPONSE = "SAMLResponse";
@@ -97,14 +98,30 @@ public class SAMLProvider extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		 HttpSession session = request.getSession(true);
+		 
+		 if(session !=null){
+			 log.debug("HttpSession OK");
+		 }else{
+			 log.debug("HttpSession KO");
+		 }
+		 
 	     Locale locale = (Locale) Config.get(session, Config.FMT_LOCALE);
-	 
+	     
 	     if (locale == null) {
+	    	 log.debug("Failed get locale via session");
 	         locale = request.getLocale();
+	         if(locale == null){
+	        	 log.debug("locale via session KO");
+	         }else{
+	        	 log.debug("locale via request OK");
+	         }
 	     }
 	     if (request.getParameter("language") != null) {
+	    	 log.debug("Locale language : "+request.getParameter("language"));
 	         locale = new Locale(request.getParameter("language"));
 	         this.servletC.setAttribute("lang", request.getParameter("language"));
+	     }else{
+	    	 log.debug("Locale language : unknow");
 	     }
 	     Config.set(session, Config.FMT_LOCALE, locale);
 	     response.setLocale(locale);
@@ -114,8 +131,14 @@ public class SAMLProvider extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		Principal _userPrincipal = request.getUserPrincipal();
-		String uid = _userPrincipal.getName();
+		String uid = null;
+		if(_userPrincipal !=null && !_userPrincipal.equals("")){
+			uid = _userPrincipal.getName();
+			log.info("User principal ="+uid);
+		}
+		
 		// System.out.println("UID TEST="+uid);
 		req_idx = reqCounter.getAndIncrement();
 
@@ -124,6 +147,7 @@ public class SAMLProvider extends HttpServlet {
 
 		if (attribute != null && attribute instanceof ServiceProvidersList) {
 			this.serviceProvidersList = (ServiceProvidersList) attribute;
+			log.debug("Servlet context handlers loaded : "+this.serviceProvidersList.getSamlHandlers().size()+" item(s)");
 		} else {
 			log.error("Failed to load servlet context handlers");
 		}
@@ -144,24 +168,14 @@ public class SAMLProvider extends HttpServlet {
 
 		this.parameter = urlParameters.getParameters();
 
-		log.debug("Parameters sp=" + this.parameter.getSp() + " ipn" + this.parameter.getUid());
-		System.out.println("Parameters sp=" + this.parameter.getSp() + " ipn" + this.parameter.getUid());
+		log.info("Parameters sp=" + this.parameter.getSp() + " ipn" + this.parameter.getUid());
 		try {
 
 			Map<String, List<String>> attributes = this.myLdapConnector.getAttributes(this.parameter.getUid(),
 					this.serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getAttributes());
 
 			if (attributes != null) {
-				Set<String> keySet = attributes.keySet();
-
-				Iterator<String> iterator = keySet.iterator();
-
-				while (iterator.hasNext()) {
-					String next = iterator.next();
-
-					System.out.println("ATTR " + next + " = " + attributes.get(next));
-				}
-
+				
 				Assertion assertion = mySAMLHandler.createAuthnAssertion(this.parameter.getUid(), attributes,
 						this.serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()));
 				log.info("assertion : {} ", mySAMLHandler.prettyPrint(assertion));
@@ -232,49 +246,44 @@ public class SAMLProvider extends HttpServlet {
 			e1.printStackTrace();
 		}
 
-		// TODO HERE SAML TOKEN GENERATION
-		ServiceProviderProperties spSAML = this.serviceProvidersList.getSamlHandlers().get(this.parameter.getSp());
-		if (spSAML != null) {
-			// SAMLHandler SAMLHandler = new SAMLHandler(spSAML);
-
-		}
-
 		// --------------------------------------
 		request.setAttribute("handlers", this.serviceProvidersList);
 		request.setAttribute("param", this.parameter);
 
-		// request.setAttribute("idpconfig", this.idpConfig);
-		// this.getServletContext().getRequestDispatcher("/index.jsp").forward(request,
-		// response);
-		// FOR TEST
-		// this.getServletContext().getRequestDispatcher("/WEB-INF/logresults.jsp").forward(request,
-		// response);
 	}
 
 	public void init() throws ServletException {
-		System.out.println("INIT");
-		log.info("Initialisation");
+		System.out.println("initialisation");
+		logManagement = new LogManagement("logFile.log");
+		log.debug("---------- Begin Initialisation ---------------");
 
 		servletC = getServletContext();
-		realPath = servletC.getRealPath(File.separator);
-
-		ResourcesPaths paths = new ResourcesPaths(realPath);
+		
+		if(servletC == null){
+			log.error("Failed to instanciate servlet context in initialisation process");
+		}
+		
 		Properties properties = new Properties();
-
+		
+		
 		String prop_path = System.getProperty("app.configurationFile");
 
 		if ((prop_path == null) || (prop_path.length() == 0)) {
+			realPath = servletC.getRealPath(File.separator);
+			log.info("Get servlet context real path=",realPath);
+			ResourcesPaths paths = new ResourcesPaths(realPath);
+			log.debug("System property \"app.configurationFile\" not exist");
 			try {
 				properties.load(new FileInputStream(new File(paths.getConfigPath())));
+				log.info("Properties file loaded at "+paths.getConfigPath());
 			} catch (FileNotFoundException e) {
-				log.error("File not foud");
-				e.printStackTrace();
+				log.error("File properties not found at "+paths.getConfigPath());
 			} catch (IOException e) {
 				log.error("Error loading properties");
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
+		}else{
+			log.info("Properties file loaded at "+prop_path);
 		}
 
 		reqCounter = new AtomicInteger(1);
@@ -286,16 +295,16 @@ public class SAMLProvider extends HttpServlet {
 			log.error("cannot create SAMLHandler :  {}", e.getMessage());
 		}
 
-		log.debug("(Init) check all the Handlers process");
-
-
 		//this.serviceProvidersList = new ServiceProvidersList(realPath);
 		this.serviceProviderXMLPath = properties.getProperty("serviceProviders.path");
-		log.info("Service provider XML path ="+this.serviceProviderXMLPath);
+		
+		if(this.serviceProviderXMLPath == null || this.serviceProviderXMLPath.equals("") || this.serviceProviderXMLPath.equals("null")){
+			log.error("Failed to get Service providers path file");
+		}else{
+			log.info("Service provider XML path ="+this.serviceProviderXMLPath);
+		}
+		
 		servletC.setAttribute("serviceProviderXmlPath", this.serviceProviderXMLPath);
-		
-		
-		
 		
 		this.serviceProvidersList = new ServiceProvidersList(properties.getProperty("serviceProviders.path"));
 		
@@ -311,7 +320,7 @@ public class SAMLProvider extends HttpServlet {
 		servletC.setAttribute("spmap", this.serviceProvidersList.getSamlHandlers());
 		// TODO a revoir
 		servletC.setAttribute("path", this.realPath);
-		log.debug("fetch identity provider configuration ");
+		//log.debug("fetch identity provider configuration ");
 		// this.idpConfig = new IdpConfig(realPath);
 
 		try {
@@ -328,9 +337,10 @@ public class SAMLProvider extends HttpServlet {
 			servletC.setAttribute("ldapctx", myLdapConnector);
 
 		} catch (Exception e) {
-			log.error("cannot create context :  {}", e.getMessage());
+			log.error("cannot instanciate LDAP via Porpoerties :  {}", e.getMessage());
 		}
-
+		
+		log.debug("---------- End Initialisation ---------------");
 	}
 
 }

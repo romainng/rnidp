@@ -21,7 +21,7 @@
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_COUNTRY">COUNTRY</label><br/>
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_STREET">STREET</label><br/>
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_POSTALCODE">POSTALCODE</label><br/>
-		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_POSTALADDRESS ">POSTALADDRESS </label><br/>
+		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_POSTALADDRESS ">POSTALADDRESS</label><br/>
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_CITY">CITY</label><br/>
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="USER_MAIL">MAIL</label><br/>
 		<label class="checkclass"><input type="checkbox" name="spAttrib" value="DEALER_DCSKIND">DCSKIND</label><br/>

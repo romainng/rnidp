@@ -124,5 +124,22 @@ a.info:hover span {
    border-left: 2px solid #3f3f3f;
 }
 
+#logWindow{
+	height:350px;
+	width:800px;
+	border:1px solid #ccc;
+	font:16px/26px sans-serif;
+	overflow:auto;
+}
 
+#logWindow .debuglog{
+	color: blue;
+}
 
+#logWindow .infolog{
+	color: green;
+}
+
+#logWindow .errorlog{
+	color: red;
+}
