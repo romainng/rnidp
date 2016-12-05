@@ -1,6 +1,7 @@
 package com.renault.rnet.idp.servlet;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -43,9 +44,18 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private String userUid = "";
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		
+		Principal _userPrincipal = request.getUserPrincipal();
+		if(_userPrincipal !=null && !_userPrincipal.equals("")){
+			this.userUid = _userPrincipal.getName();
+		}
+		
+		
 		// define which action to launch
 		String action = request.getParameter("action");
 		sc = getServletContext();
@@ -55,29 +65,29 @@ public class ManagementSpServlet extends HttpServlet {
 		// sc.getAttribute("serviceProviderXmlPath"));
 		if (attribute instanceof ServiceProvidersList && attribute != null) {
 			this.handlers = (ServiceProvidersList) attribute;
-			log.debug("Handlers fetched from context in ManagementSpServlet servlet");
+			log.debug("USER="+this.userUid+" Handlers fetched from context in ManagementSpServlet servlet");
 		} else {
-			log.error("Handlers not fetched from context in ManagementSpServlet servlet");
+			log.error("USER="+this.userUid+" Handlers not fetched from context in ManagementSpServlet servlet");
 
 		}
 
 		if (action.equals("add") || action.equals("ajouter")) {
-			log.info("ACTION = add process");
+			log.info("USER="+this.userUid+" ACTION = add process");
 			addProccess(request, false);
 		} else if ((action.equals("modify") || action.equals("modifier"))) {
-			log.info("ACTION = modify process");
+			log.info("USER="+this.userUid+" ACTION = modify process");
 			addProccess(request, true);
 		} else if ((action.equals("delete") || action.equals("supprimer"))) {
-			log.info("ACTION = delete process");
+			log.info("USER="+this.userUid+" ACTION = delete process");
 			String spnameToDel = (String) request.getParameter("sptodel");
 			if (spnameToDel != null && !spnameToDel.equals("") && !spnameToDel.equals("-Select-")) {
 				delProcess(spnameToDel);
 			} else {
-				log.error("FAILED to delete sp");
+				log.error("USER="+this.userUid+" FAILED to delete sp");
 			}
 		} else {
 			if (action != null) {
-				log.error("ACTION : no action available for " + action);
+				log.error("USER="+this.userUid+" ACTION : no action available for " + action);
 			}
 
 		}
@@ -97,9 +107,9 @@ public class ManagementSpServlet extends HttpServlet {
 		if (this.handlers != null) {
 			this.handlers.getSamlHandlers().remove(spToDel);
 			sc.setAttribute("handlers", this.handlers);
-			log.info("Succes " + spToDel + " deleted.");
+			log.info("USER="+this.userUid+" Succes " + spToDel + " deleted.");
 		} else {
-			log.error("Failed to delete Service provider to handlers");
+			log.error("USER="+this.userUid+" Failed to delete Service provider to handlers");
 		}
 
 	}
@@ -110,32 +120,32 @@ public class ManagementSpServlet extends HttpServlet {
 		String contextPath = (String) sc.getAttribute("serviceProviderXmlPath");
 		this.handlers = new ServiceProvidersList(contextPath);
 		if (isModify) {
-			log.debug("Modify a Service provider");
+			log.debug("USER="+this.userUid+" Modify a Service provider");
 			spname = (String) request.getParameter("spname");
-			log.debug("entry service provider name to modify=" + spname);
+			log.debug("USER="+this.userUid+" entry service provider name to modify=" + spname);
 		} else {
-			log.debug("Create a new Service provider");
+			log.debug("USER="+this.userUid+" Create a new Service provider");
 			spname = (String) request.getParameter("spname");
-			log.debug("entry service provider name=" + spname);
+			log.debug("USER="+this.userUid+" entry service provider name=" + spname);
 		}
 		String issuerirl = request.getParameter("issuerurl");
-		log.debug("entry issuer url=" + issuerirl);
+		log.debug("USER="+this.userUid+" entry issuer url=" + issuerirl);
 
 		String datarecipient = request.getParameter("datarecipient");
-		log.debug("entry data recipient=" + datarecipient);
+		log.debug("USER="+this.userUid+" entry data recipient=" + datarecipient);
 
 		String audienceuri = request.getParameter("audienceuri");
-		log.debug("entry audience uri=" + audienceuri);
+		log.debug("USER="+this.userUid+" entry audience uri=" + audienceuri);
 
 		String relaystate = request.getParameter("relaystate");
-		log.debug("entry relay state=" + relaystate);
+		log.debug("USER="+this.userUid+" entry relay state=" + relaystate);
 		// String confirmationdata = request.getParameter("confirmationdata");
 		int confirmationdata = 0;
-		log.debug("entry confirmation data=" + confirmationdata);
+		log.debug("USER="+this.userUid+" entry confirmation data=" + confirmationdata);
 		String conditionsnotbefore = request.getParameter("conditionsnotbefore");
-		log.debug("entry conditions not before=" + conditionsnotbefore);
+		log.debug("USER="+this.userUid+" entry conditions not before=" + conditionsnotbefore);
 		String conditionnotonorafter = request.getParameter("conditionnotonorafter");
-		log.debug("entry condition not on or after=" + conditionnotonorafter);
+		log.debug("USER="+this.userUid+" entry condition not on or after=" + conditionnotonorafter);
 
 		String[] atts = request.getParameterValues("spAttrib");
 		List<String> listAtts = new ArrayList<String>();
@@ -149,11 +159,11 @@ public class ManagementSpServlet extends HttpServlet {
 					strbAtt.append(" ");
 				}
 			}
-			log.debug("entry Attributes " + listAtts.size() + " item(s) = " + strbAtt.toString());
+			log.debug("USER="+this.userUid+" entry Attributes " + listAtts.size() + " item(s) = " + strbAtt.toString());
 		}
 
 		String profiles = request.getParameter("profils");
-		log.debug("entry profiles =" + profiles);
+		log.debug("USER="+this.userUid+" entry profiles =" + profiles);
 		List<String> listProfiles = new ArrayList<String>();
 		String[] splitProfiles = profiles.split(",| ");
 
@@ -167,13 +177,12 @@ public class ManagementSpServlet extends HttpServlet {
 					strbPro.append(" ");
 				}
 			}
-			log.debug("entry profiles " + listProfiles.size() + " item(s) =" + strbPro.toString());
+			log.debug("USER="+this.userUid+" entry profiles " + listProfiles.size() + " item(s) =" + strbPro.toString());
 		} else {
-			log.debug("entry profiles empty");
+			log.debug("USER="+this.userUid+" entry profiles empty");
 		}
 
 		String admins = request.getParameter("admins");
-		log.debug("entry admins =" + admins);
 		List<String> listAdmins = new ArrayList<String>();
 		String[] splitAdmins = admins.split(",| ");
 
@@ -186,9 +195,9 @@ public class ManagementSpServlet extends HttpServlet {
 					strbAdm.append(" ");
 				}
 			}
-			log.debug("entry admins " + listAdmins.size() + " item(s) = " + strbAdm.toString());
+			log.debug("USER="+this.userUid+" entry admins " + listAdmins.size() + " item(s) = " + strbAdm.toString());
 		} else {
-			log.debug("entry admins empty");
+			log.debug("USER="+this.userUid+" entry admins empty");
 		}
 
 		// boolean which trigger or not the add process. False means some
@@ -253,7 +262,7 @@ public class ManagementSpServlet extends HttpServlet {
 							createServiceProviderProperties);
 					sc.setAttribute("handlers", this.handlers);
 				} else {
-					log.error("Failed to delete Service provider to handlers");
+					log.error("USER="+this.userUid+" Failed to delete Service provider to handlers");
 				}
 			} else {
 
@@ -266,20 +275,20 @@ public class ManagementSpServlet extends HttpServlet {
 				ServiceProviderXMLManage spXML = new ServiceProviderXMLManage(
 						(String) this.sc.getAttribute("serviceProviderXmlPath"));
 				spXML.addSPXML(createServiceProviderProperties);
-				log.info("SUCCES create Service provider :" + createServiceProviderProperties.getSpName());
+				log.info("USER="+this.userUid+" Succes create Service provider :" + createServiceProviderProperties.getSpName());
 
 				if (this.handlers != null) {
 					this.handlers.getSamlHandlers().put(createServiceProviderProperties.getSpName(),
 							createServiceProviderProperties);
 					sc.setAttribute("handlers", this.handlers);
 				} else {
-					log.error("Failed to add Service provider to handlers");
+					log.error("USER="+this.userUid+" Failed to add Service provider to handlers");
 				}
 
 			}
 
 		} else {
-			log.error("ERROR : Service provider not added, check log for details.");
+			log.error("USER="+this.userUid+" ERROR : Service provider not added, check log for details.");
 		}
 
 	}
@@ -331,13 +340,13 @@ public class ManagementSpServlet extends HttpServlet {
 	private boolean validSPName(String spname, boolean isMod) {
 
 		if (spname == null) {
-			log.error("SP not added : SP name null.");
+			log.error("USER="+this.userUid+" SP not added : SP name null.");
 			return false;
 		} else if (spname.equals("") && spname.equals("-Select-")) {
-			log.error("SP not added : service provider name: \"" + spname + "\" not valid.");
+			log.error("USER="+this.userUid+" SP not added : service provider name: \"" + spname + "\" not valid.");
 			return false;
 		} else if (!isMod && this.handlers.getSamlHandlers().containsKey(spname)) {
-			log.error("SP not added : service provider name: \"" + spname + "\" already exist.");
+			log.error("USER="+this.userUid+" SP not added : service provider name: \"" + spname + "\" already exist.");
 			return false;
 		}
 
@@ -346,10 +355,10 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validIssuer(String issuer) {
 		if (issuer == null) {
-			log.error("SP not added : Issuer name null.");
+			log.error("USER="+this.userUid+" SP not added : Issuer name null.");
 			return false;
 		} else if (!issuer.equals("VecturyDealerCommunity")) {
-			log.error("SP not added : Issuer name " + issuer + " not match \"VecturyDealerCommunity\".");
+			log.error("USER="+this.userUid+" SP not added : Issuer name " + issuer + " not match \"VecturyDealerCommunity\".");
 			return false;
 		}
 		return true;
@@ -362,10 +371,10 @@ public class ManagementSpServlet extends HttpServlet {
 		Matcher matcher = patt.matcher(dataRec);
 
 		if (dataRec == null) {
-			log.error("SP not added : Data recipient name null.");
+			log.error("USER="+this.userUid+" SP not added : Data recipient name null.");
 			return false;
 		} else if (!matcher.matches()) {
-			log.error("SP not added : Data recipient name " + dataRec + " not valid URL.");
+			log.error("USER="+this.userUid+" SP not added : Data recipient name " + dataRec + " not valid URL.");
 			return false;
 		}
 
@@ -374,7 +383,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validAudience(String audi) {
 		if (audi == null) {
-			log.error("SP not added : Audience uri name null.");
+			log.error("USER="+this.userUid+" SP not added : Audience uri name null.");
 			return false;
 		}
 		return true;
@@ -382,7 +391,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validRelay(String relay) {
 		if (relay == null) {
-			log.error("SP not added : relay state name null.");
+			log.error("USER="+this.userUid+" SP not added : relay state name null.");
 			return false;
 		}
 		return true;
@@ -390,16 +399,16 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validConditionAfter(String condition) {
 		if (condition == null) {
-			log.error("SP not added : confirmation data after value null.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after value null.");
 			return false;
 		} else if (condition.equals("")) {
-			log.error("SP not added : confirmation data after value empty.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after value empty.");
 			return false;
 		} else if (!(Integer.valueOf(condition) instanceof Integer)) {
-			log.error("SP not added : confirmation data after value " + condition + " not valid.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after value " + condition + " not valid.");
 			return false;
 		} else if (Integer.valueOf(condition) != 30) {
-			log.error("SP not added : confirmation data after value " + condition + " not equals to 30.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after value " + condition + " not equals to 30.");
 			return false;
 		}
 		return true;
@@ -407,16 +416,16 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validConditionBefore(String condition) {
 		if (condition == null) {
-			log.error("SP not added : confirmation data before value null.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data before value null.");
 			return false;
 		} else if (condition.equals("")) {
-			log.error("SP not added : confirmation data before value empty.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data before value empty.");
 			return false;
 		} else if (!(Integer.valueOf(condition) instanceof Integer)) {
-			log.error("SP not added : confirmation data after before " + condition + " not valid.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after before " + condition + " not valid.");
 			return false;
 		} else if (Integer.valueOf(condition) != 10) {
-			log.error("SP not added : confirmation data after before " + condition + " not equals to 10.");
+			log.error("USER="+this.userUid+" SP not added : confirmation data after before " + condition + " not equals to 10.");
 			return false;
 		}
 		return true;
@@ -424,7 +433,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validAttributes(List<String> atts) {
 		if (atts == null) {
-			log.error("SP not added : attributes list null.");
+			log.error("USER="+this.userUid+" SP not added : attributes list null.");
 			return false;
 		}
 		return true;
@@ -432,7 +441,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validAdmin(List<String> admins) {
 		if (admins == null) {
-			log.error("SP not added : admins list null.");
+			log.error("USER="+this.userUid+" SP not added : admins list null.");
 			return false;
 		}
 		return true;
@@ -440,7 +449,7 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validProfiles(List<String> profiles) {
 		if (profiles == null) {
-			log.error("SP not added : profiles list null.");
+			log.error("USER="+this.userUid+" SP not added : profiles list null.");
 			return false;
 		}
 		return true;

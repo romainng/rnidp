@@ -195,7 +195,7 @@
 									<tbody>
 										<tr class="VecturyMenu0TR" id="trIdMenuVecturyAbout">
 											<td class="VecturyMenu0TD" id="tdIdMenuVecturyAbout"><span
-												class="VecturyLeftVersionSpan">Version <a>0.1</a><br/>
+												class="VecturyLeftVersionSpan">Version <a>0.2</a><br/>
 											</span></td>
 										</tr>
 									</tbody>

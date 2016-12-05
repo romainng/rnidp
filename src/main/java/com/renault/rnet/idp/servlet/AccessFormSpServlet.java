@@ -2,6 +2,7 @@ package com.renault.rnet.idp.servlet;
 
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -28,8 +29,10 @@ public class AccessFormSpServlet extends HttpServlet {
 	 * Log
 	 */
 	private final org.slf4j.Logger log = LoggerFactory.getLogger(AccessFormSpServlet.class);
-	ServletContext sc;
-	ServiceProvidersList handlers;
+	private ServletContext sc;
+	private ServiceProvidersList handlers;
+	private String userUid = "";
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
@@ -39,15 +42,20 @@ public class AccessFormSpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {		
 
-		log.debug("redirect to management form");
+		Principal _userPrincipal = request.getUserPrincipal();
+		if(_userPrincipal !=null && !_userPrincipal.equals("")){
+			this.userUid = _userPrincipal.getName();
+		}
+		
+		log.debug("USER="+this.userUid+" redirect to management form");
 		sc = getServletContext();
 		Object attribute = sc.getAttribute("handlers");
 
 		if (attribute instanceof ServiceProvidersList && attribute != null) {
 			this.handlers = (ServiceProvidersList) attribute;
-			log.debug("Handlers fetched from context in AccesForm servlet");
+			log.debug("USER="+this.userUid+" Handlers fetched from context in AccesForm servlet");
 		}else{
-			log.error("Handlers not fetched from context in Form servlet");
+			log.error("USER="+this.userUid+" Handlers not fetched from context in Form servlet");
 		}
 		sc.setAttribute("spitem", this.handlers.getSamlHandlers().keySet());
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/management.jsp");

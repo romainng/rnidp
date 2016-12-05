@@ -130,6 +130,7 @@ a.info:hover span {
 	border:1px solid #ccc;
 	font:16px/26px sans-serif;
 	overflow:auto;
+	
 }
 
 #logWindow .debuglog{

@@ -51,15 +51,17 @@ import com.renault.rnet.idp.log.LogManagement;
 @WebServlet(name = "SAMLProvider", loadOnStartup = 1, urlPatterns = { "/SAMLProvider" })
 public class SAMLProvider extends HttpServlet {
 
-	String serviceProviderXMLPath= null;
-	LogManagement logManagement;
+	private String serviceProviderXMLPath= null;
+	private LogManagement logManagement;
 	
-	String realPath;
+	private String realPath;
 	private static final String SAML_RESPONSE = "SAMLResponse";
-	SAMLHandler mySAMLHandler = null;
+	private SAMLHandler mySAMLHandler = null;
 	private static final String RELAY_STATE = "RelayState";
-	LdapConnector myLdapConnector = null;
+	private LdapConnector myLdapConnector = null;
 
+	private String userUid = "";
+	
 	/**
 	 * 
 	 */
@@ -111,7 +113,7 @@ public class SAMLProvider extends HttpServlet {
 	    	 log.debug("Failed get locale via session");
 	         locale = request.getLocale();
 	         if(locale == null){
-	        	 log.debug("locale via session KO");
+	        	 log.debug("locale via request KO");
 	         }else{
 	        	 log.debug("locale via request OK");
 	         }
@@ -137,6 +139,7 @@ public class SAMLProvider extends HttpServlet {
 		if(_userPrincipal !=null && !_userPrincipal.equals("")){
 			uid = _userPrincipal.getName();
 			log.info("User principal ="+uid);
+			this.userUid = uid;
 		}
 		
 		// System.out.println("UID TEST="+uid);
@@ -147,12 +150,12 @@ public class SAMLProvider extends HttpServlet {
 
 		if (attribute != null && attribute instanceof ServiceProvidersList) {
 			this.serviceProvidersList = (ServiceProvidersList) attribute;
-			log.debug("Servlet context handlers loaded : "+this.serviceProvidersList.getSamlHandlers().size()+" item(s)");
+			log.debug("USER="+this.userUid+" Servlet context handlers loaded : "+this.serviceProvidersList.getSamlHandlers().size()+" item(s)");
 		} else {
-			log.error("Failed to load servlet context handlers");
+			log.error("USER="+this.userUid+" Failed to load servlet context handlers");
 		}
 
-		log.debug("check the parameters in url");
+		log.debug("USER="+this.userUid+" check the parameters in url");
 		// PROD LINE
 		URLParameters urlParameters = new URLParameters(request, uid);
 
@@ -168,7 +171,7 @@ public class SAMLProvider extends HttpServlet {
 
 		this.parameter = urlParameters.getParameters();
 
-		log.info("Parameters sp=" + this.parameter.getSp() + " ipn" + this.parameter.getUid());
+		log.info("USER="+this.userUid+" Parameters sp=" + this.parameter.getSp() + " ipn" + this.parameter.getUid());
 		try {
 
 			Map<String, List<String>> attributes = this.myLdapConnector.getAttributes(this.parameter.getUid(),
@@ -178,16 +181,16 @@ public class SAMLProvider extends HttpServlet {
 				
 				Assertion assertion = mySAMLHandler.createAuthnAssertion(this.parameter.getUid(), attributes,
 						this.serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()));
-				log.info("assertion : {} ", mySAMLHandler.prettyPrint(assertion));
+				log.info("USER="+this.userUid+" assertion : {} ", mySAMLHandler.prettyPrint(assertion));
 				// TODO SAML TOKEN GEN
 				System.out.println("ASSERTION=" + mySAMLHandler.prettyPrint(assertion));
 				// create response
 				Response responseSAML;
 
 				responseSAML = mySAMLHandler.createResponse(assertion);
-				log.info("response : {} ", mySAMLHandler.prettyPrint(responseSAML));
+				log.info("USER="+this.userUid+" response : {} ", mySAMLHandler.prettyPrint(responseSAML));
 				signer.sign(responseSAML);
-				System.out.println("REPONSE=" + mySAMLHandler.prettyPrint(responseSAML));
+				System.out.println("USER="+this.userUid+" REPONSE=" + mySAMLHandler.prettyPrint(responseSAML));
 
 				String SignedSamlRequestAsString = mySAMLHandler.prettyPrintSigneObject(responseSAML);
 				// encode 64 using common apache codec
@@ -236,13 +239,13 @@ public class SAMLProvider extends HttpServlet {
 			}
 
 		} catch (LdapException e) {
-			log.error("My LDAPConnector error");
+			log.error("USER="+this.userUid+" My LDAPConnector error");
 			e.printStackTrace();
 		} catch (MarshallingException e1) {
-			log.error("My Marshalling error");
+			log.error("USER="+this.userUid+" My Marshalling error");
 			e1.printStackTrace();
 		} catch (TransformerException e1) {
-			log.error("Transformer error");
+			log.error("USER="+this.userUid+" Transformer error");
 			e1.printStackTrace();
 		}
 
@@ -297,16 +300,18 @@ public class SAMLProvider extends HttpServlet {
 
 		//this.serviceProvidersList = new ServiceProvidersList(realPath);
 		this.serviceProviderXMLPath = properties.getProperty("serviceProviders.path");
+		log.debug("Path to service provider xml file set to "+this.serviceProviderXMLPath);
 		
-		if(this.serviceProviderXMLPath == null || this.serviceProviderXMLPath.equals("") || this.serviceProviderXMLPath.equals("null")){
-			log.error("Failed to get Service providers path file");
+		servletC.setAttribute("serviceProviderXmlPath", this.serviceProviderXMLPath);
+		
+		this.serviceProvidersList = new ServiceProvidersList(this.serviceProviderXMLPath);
+		
+		if(	this.serviceProvidersList == null){
+			log.error("Failed to get Service providers path file at "+this.serviceProviderXMLPath);
 		}else{
 			log.info("Service provider XML path ="+this.serviceProviderXMLPath);
 		}
 		
-		servletC.setAttribute("serviceProviderXmlPath", this.serviceProviderXMLPath);
-		
-		this.serviceProvidersList = new ServiceProvidersList(properties.getProperty("serviceProviders.path"));
 		
 		int handlersCount = 1;
 		for (Entry<String, ServiceProviderProperties> h : this.serviceProvidersList.getSamlHandlers().entrySet()) {
