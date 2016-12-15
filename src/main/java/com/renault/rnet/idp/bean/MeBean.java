@@ -11,7 +11,9 @@ import com.renault.rnet.idp.ldap.LdapConnector;
 import com.renault.rnet.idp.ldap.LdapException;
 
 /**
- * Represent all the infomations fetchable in LDAP with the uid (ipn) and all the information we are able to send to the receiver
+ * Represent all the infomations fetchable in LDAP with the uid (ipn) and all
+ * the information we are able to send to the receiver
+ * 
  * @author rng
  *
  */
@@ -24,7 +26,7 @@ public class MeBean {
 			"USER_BRANDS", "USER_CITY", "USER_PHONE", "USER_MAIL", "USER_MAILFORWARD", "USER_MAILDELIVERYOPTION",
 			"DEALER_NUMBER", "DEALER_NAME", "DEALER_COUNTRY", "DEALER_STREET", "DEALER_POSTALCODE",
 			"DEALER_POSTALADDRESS", "DEALER_CITY", "DEALER_DCSKIND", "DEALER_DEPDEALER", "DEALER_SUBSIDIARY" };
-	
+
 	private String myUID;
 	private LdapConnector myLDAP;
 	private Map<String, List<String>> myLDAPAttributes;

@@ -55,17 +55,15 @@ public class MeServlet extends HttpServlet {
 		//uid = "a189564";
 		//uid = "p083925";
 		//System.out.println(servletC.getAttribute("ldapctx").toString());
-
-		
 		
 		if (servletC.getAttribute("ldapctx") instanceof LdapConnector) {
 			meBean = new MeBean(uid, (LdapConnector) servletC.getAttribute("ldapctx"));
 
-			String myLDAPAttributes = meBean.getMyLDAPAttributes(this.servletC);
-			log.debug("USER="+this.userUid+" User LDAP UID ="+uid);
-			log.debug("USER="+this.userUid+" User LDAP info ="+myLDAPAttributes);
+			String myLDAPAttributes = meBean.getMyLDAPAttributes(this.servletC);	
 			request.setAttribute("myUid", uid);
 			request.setAttribute("myInfo", myLDAPAttributes.trim().split(System.lineSeparator()));
+			log.debug("USER="+this.userUid+" User LDAP UID ="+uid);
+			//log.debug("USER="+this.userUid+" User LDAP info ="+myLDAPAttributes);
 		}else{
 			this.log.error("USER="+this.userUid+" fail to fetch ldap contex in Me servlet");
 			

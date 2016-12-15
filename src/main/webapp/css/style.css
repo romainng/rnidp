@@ -144,3 +144,7 @@ a.info:hover span {
 #logWindow .errorlog{
 	color: red;
 }
+
+.VecturyRightTD{
+	 overflow: scroll;
+}

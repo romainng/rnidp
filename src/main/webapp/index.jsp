@@ -114,9 +114,9 @@
 						<td class="VecturyHeaderMiddleRightTD">&nbsp;</td>
 					</tr>
 					<tr class="VecturyHeaderBottomTR">
-						<td class="VecturyHeaderBottomRightTD"><a
+						<td class="VecturyHeaderBottomRightTD"><%-- <a
 							class="VecturyHeaderMENUA" id="VecturyHelpAId" href="help.jsp"
-							target="body"><fmt:message key="help.label" /></a> &nbsp;</td>
+							target="body"><fmt:message key="help.label" /></a> --%> &nbsp;</td>
 					</tr>
 
 					<tr class="VecturyHeaderBottomBoundTR">
@@ -166,8 +166,6 @@
 																target="body"><fmt:message key="serviceproman.label" />
 															</a></td>
 														</tr>
-
-
 
 														<tr class="VecturyMenu2TR">
 															<td><a class="VecturyMenu2TR" href="/rnz_idp/logapp"

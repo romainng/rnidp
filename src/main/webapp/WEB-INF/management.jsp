@@ -22,17 +22,21 @@
 				:
 			</legend>
 
-			<label for="spname"><fmt:message key="sp.manage.label" /> :</label><input
-				type="text" id="spnameAdd" name="spname" value="" size="25"
-				maxlength="25"> <a href="#" class="info"> <img
-				alt="info" src="img/hint.jpg" height="15" width="15"> <span><fmt:message
-						key="sphint.manage.label" /></span>
-
-			</a> <span id="spnameAddWarn"><fmt:message
-					key="mandatory.warn.label" /></span> <span id="spnameAddWarnDup"><fmt:message
-					key="duplicate.warn.label" /></span><br /> <label for="issuerurl">
-				<fmt:message key="issuer.manage.label" /> :
-			</label><input type="text" name="issuerurl" id="issuerurlAdd"
+			<label for="spname"><fmt:message key="sp.manage.label" /> :</label>
+			
+			<input type="text" id="spnameAdd" name="spname" value="" size="25" maxlength="25"> 
+				<a href="#" class="info"> 
+					<img alt="info" src="img/hint.jpg" height="15" width="15"> 
+					<span><fmt:message key="sphint.manage.label" /></span>	
+				</a> 
+				<span id="spnameAddWarn"><fmt:message key="mandatory.warn.label" /></span> 
+					<span id="spnameAddWarnDup"><fmt:message key="duplicate.warn.label" /></span><br /> 
+					
+					<label for="issuerurl">
+					<fmt:message key="issuer.manage.label" /> :
+			</label>
+			
+			<input type="text" name="issuerurl" id="issuerurlAdd"
 				value="VecturyDealerCommunity" size="30" maxlength="30" readonly>
 			<span id="issuerurlAddWarn"><fmt:message
 					key="mandatory.warn.label" /></span> <br /> <label for="datarecipient"><fmt:message
@@ -77,20 +81,18 @@
 			<br /> <label for="profils"><fmt:message
 					key="profil.manage.label" /> : </label>
 			<textarea rows="2" cols="20" name="profils"></textarea>
-			<a href="#" class="info"> <img
-				alt="info" src="img/hint.jpg" height="15" width="15"> <span><fmt:message
+			<a href="#" class="info"> <img alt="info" src="img/hint.jpg"
+				height="15" width="15"> <span><fmt:message
 						key="speratorhint.manage.label" /></span>
 
-			</a> 
-			
-			<br /> <label for="admins"><fmt:message
+			</a> <br /> <label for="admins"><fmt:message
 					key="admin.manage.label" /> :</label>
-			<textarea rows="2" cols="20" name="admins"></textarea><a href="#" class="info"> <img
-				alt="info" src="img/hint.jpg" height="15" width="15"> <span><fmt:message
+			<textarea rows="2" cols="20" name="admins"></textarea>
+			<a href="#" class="info"> <img alt="info" src="img/hint.jpg"
+				height="15" width="15"> <span><fmt:message
 						key="speratorhint.manage.label" /></span>
 
-			</a> 
-			<br /> <input type="submit"
+			</a> <br /> <input type="submit"
 				value="<fmt:message key="addbut.manage.label" />" name="action" />
 			<br />
 		</fieldset>
@@ -152,7 +154,7 @@
 			</a> <span id="conditionnotonorafterModWarn"><fmt:message
 					key="number.warn.label" /></span><br /> <label for="atts"><fmt:message
 					key="attribute.manage.label" /> :</label> <br />
-		
+
 			<c:import url="attributeslist.jsp" />
 
 
@@ -160,19 +162,18 @@
 			<br /> <label for="profils"><fmt:message
 					key="profil.manage.label" /> :</label>
 			<textarea id="profilsModif" rows="2" cols="20" name="profils"></textarea>
-			<a href="#" class="info"> <img
-				alt="info" src="img/hint.jpg" height="15" width="15"> <span><fmt:message
+			<a href="#" class="info"> <img alt="info" src="img/hint.jpg"
+				height="15" width="15"> <span><fmt:message
 						key="speratorhint.manage.label" /></span>
 
 			</a> <br /> <label for="admins"><fmt:message
 					key="admin.manage.label" /> : </label>
 			<textarea id="adminsModif" rows="2" cols="20" name="admins"></textarea>
-			<a href="#" class="info"> <img
-				alt="info" src="img/hint.jpg" height="15" width="15"> <span><fmt:message
+			<a href="#" class="info"> <img alt="info" src="img/hint.jpg"
+				height="15" width="15"> <span><fmt:message
 						key="speratorhint.manage.label" /></span>
 
-			</a> 
-			<br /> <br /> <input type="submit"
+			</a> <br /> <br /> <input type="submit"
 				value="<fmt:message key="modbut.manage.label" />" name="action" />
 			<br />
 		</fieldset>
@@ -203,6 +204,6 @@
 	<div id="listSP">
 		<c:out value="${applicationScope['spitem']}"></c:out>
 	</div>
-	
+
 </body>
 </html>

@@ -130,11 +130,19 @@ public class ServiceProviderAdder {
 	 */
 	public static void refreshList(String path, String spName) {
 		StringBuilder lineToChange = null;
-		
+		File tempFile = null;
 		try {
 			File inputFile = new File(path);
-			File tempFile = new File(TEMPFILEPATH);
-
+			
+			boolean preprod = false; 
+			
+			if(preprod){
+				System.out.println("SPADDER : WARNING PREPROD FUNC");
+				log.error("SP ADDER WARNING PREPROD FUNC");
+				tempFile = new File("/idp-7086-7586/conf/rnz_idp/rnz_idp.properties/tempFile.xml");
+			}else{
+				tempFile = new File(TEMPFILEPATH);
+			}
 			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 

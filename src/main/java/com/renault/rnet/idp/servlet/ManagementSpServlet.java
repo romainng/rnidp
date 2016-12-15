@@ -339,8 +339,8 @@ public class ManagementSpServlet extends HttpServlet {
 
 	private boolean validSPName(String spname, boolean isMod) {
 
-		if (spname == null) {
-			log.error("USER="+this.userUid+" SP not added : SP name null.");
+		if (spname == null || spname.equals("")) {
+			log.error("USER="+this.userUid+" SP not added : SP name mandatory = null.");
 			return false;
 		} else if (spname.equals("") && spname.equals("-Select-")) {
 			log.error("USER="+this.userUid+" SP not added : service provider name: \"" + spname + "\" not valid.");
@@ -365,7 +365,7 @@ public class ManagementSpServlet extends HttpServlet {
 	}
 
 	private boolean validDataRec(String dataRec) {
-		String regex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+		String regex = "^(https?|ftp|file)://[www.]?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
 		Pattern patt = Pattern.compile(regex);
 		Matcher matcher = patt.matcher(dataRec);
