@@ -34,6 +34,12 @@
         <appender-ref ref="FILE"/>
 	</logger>
 	
+	<logger name="org.opensaml" level="WARN"
+		additivity="false">
+		 <appender-ref ref="consoleAppender" />
+        <appender-ref ref="FILE"/>
+	</logger>
+	
 <!-- DISPLAY ALL THE LOGS
     <root level="DEBUG">
         <appender-ref ref="consoleAppender" />

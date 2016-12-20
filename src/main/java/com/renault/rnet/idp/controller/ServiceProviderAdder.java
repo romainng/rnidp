@@ -45,6 +45,7 @@ public class ServiceProviderAdder {
 	 * @param spProp
 	 */
 	public static void addServiceProvider(String propertiesPath, ServiceProviderProperties spProp) {
+		
 		refreshList(propertiesPath, spProp.getSpName());
 		
 		try (FileWriter fw = new FileWriter(propertiesPath, true);
@@ -79,11 +80,6 @@ public class ServiceProviderAdder {
 
 	}
 
-	//TODO
-	/**
-	private static void deleteServiceProvider(String propertiesPath, String spName){
-		
-	}*/
 	
 	/**
 	 * This method return a string that fit the sp.properties file syntax

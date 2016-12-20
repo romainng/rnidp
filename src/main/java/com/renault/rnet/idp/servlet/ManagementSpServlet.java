@@ -163,7 +163,6 @@ public class ManagementSpServlet extends HttpServlet {
 		}
 
 		String profiles = request.getParameter("profils");
-		log.debug("USER="+this.userUid+" entry profiles =" + profiles);
 		List<String> listProfiles = new ArrayList<String>();
 		String[] splitProfiles = profiles.split(",| ");
 

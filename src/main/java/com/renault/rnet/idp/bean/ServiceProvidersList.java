@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 
-import com.renault.rn.config.RNConfException;
 import com.renault.rn.config.RNConfig;
 import com.renault.rnet.idp.controller.ServiceProvidersParser;
 
@@ -25,16 +24,6 @@ public class ServiceProvidersList {
 	private Map<String, ServiceProviderProperties> samlHandlers = new HashMap<String, ServiceProviderProperties>();
 
 	public ServiceProvidersList(String contextPath) {
-/*
-		RNConfig propertiesFile = null;
-
-		String prop_path = System.getProperty("app.properties");
-
-		if ((prop_path == null) || (prop_path.length() == 0)) {
-			ResourcesPaths paths = new ResourcesPaths(contextPath);
-			prop_path = paths.getPropertiesPath();
-			
-		}*/
 		
 		
 		log.info("Trying fetch service providers xml file at "+contextPath);
@@ -79,6 +68,7 @@ public class ServiceProvidersList {
 	 * 
 	 * @param propertiesFile
 	 */
+	/*
 	private void listingSAMLHandlerProcess(RNConfig propertiesFile) {
 
 		String handlersToString = propertiesFile.getString(SP_LIST_QUERY, null);
@@ -86,9 +76,6 @@ public class ServiceProvidersList {
 			validHandlers(handlersToString);
 			String[] listSAMLHandlers = handlersToString.split("\\|");
 
-			/**
-			 * set sp in map
-			 */
 			// TODO
 			for (String handlerName : listSAMLHandlers) {
 				ServiceProviderProperties spProperties = new ServiceProviderProperties(handlerName, propertiesFile);
@@ -100,7 +87,7 @@ public class ServiceProvidersList {
 		}
 		log.debug("All handlers have been put. Number of entries" + this.samlHandlers.size());
 
-	}
+	}*/
 
 	/**
 	 * Verifying handlers
@@ -108,12 +95,12 @@ public class ServiceProvidersList {
 	 * @param handlers
 	 * @throws Exception
 	 */
-	private void validHandlers(String handlers/* ,Logger logger */) throws Exception {
-		if (handlers != null && handlers.trim().length() < 2) {
-			// logger.error("sp error.");
-			throw new Exception("Invalid handlers.");
-		}
-	}
+//	private void validHandlers(String handlers/* ,Logger logger */) throws Exception {
+//		if (handlers != null && handlers.trim().length() < 2) {
+//			// logger.error("sp error.");
+//			throw new Exception("Invalid handlers.");
+//		}
+//	}
 	/*
 	public ServiceProviderProperties getSpecificSP(){
 		ServiceProviderProperties spp = new ServiceProviderProperties(spName)

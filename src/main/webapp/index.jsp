@@ -152,7 +152,7 @@
 
 															<tr class="VecturyMenu3TR">
 																<td class="VecturyMenu3TR"><a
-																	href="<c:url value="/home?sp=${item}"/>" >${item}</a></td>
+																	href="<c:url value="/SAMLProvider?sp=${item}"/>" >${item}</a></td>
 															</tr>
 														</c:forEach>
 

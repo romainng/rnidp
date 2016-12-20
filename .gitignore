@@ -11,3 +11,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /target/
+/application.log
+/application_2016-12-05.0.log
+/application_2016-12-06.0.log
+/application_2016-12-07.0.log
+/application_2016-12-08.0.log
+/application_2016-12-09.0.log
+/application_2016-12-12.0.log
+/application_2016-12-13.0.log
+/application_2016-12-19.0.log
+/resources/

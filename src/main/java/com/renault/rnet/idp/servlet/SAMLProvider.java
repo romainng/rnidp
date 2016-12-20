@@ -275,11 +275,7 @@ public class SAMLProvider extends HttpServlet {
 		Properties properties = new Properties();
 
 		String prop_path = System.getProperty("app.configurationFile");
-
-		
-
 		String logFilePath = System.getProperty("app.logFile");
-
 		if (preprod) {
 			if (logFilePath == null || logFilePath.equals("")) {
 				logFilePath = "../../../../../../../../../../idp-7086-7586/conf/rnz_idp/application.log";
