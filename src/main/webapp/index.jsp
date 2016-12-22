@@ -32,7 +32,7 @@
 			position = eltAreaPub.position();
 			setDivHeight(eltAreaPub, top.viewportheight - position.top);
 		} catch (error) {
-			alert("skinCommonResize:" + error);
+			//alert("skinCommonResize:" + error);
 		}
 	}
 
@@ -85,8 +85,8 @@
 
 	if (top.location != self.location) {
 		//top.location.href = self.location.href;
-
-		top.location.href = "/rnz_idp/";
+		if(top!==null)
+			top.location.href = "/rnz_idp/";
 	}
 </script>
 
@@ -157,8 +157,18 @@
 														</c:forEach>
 
 														<tr class="VecturyMenu2TR">
-															<td><a class="VecturyMenu2TR" href="/rnz_idp/me"
-																target="body"><fmt:message key="me.label" /></a></td>
+															<td><%-- <a class="VecturyMenu2TR" href="/rnz_idp/me"
+																target="body"><fmt:message key="me.label" /></a> --%><fmt:message key="me.label" /></td>
+																
+																<c:forEach var="item"
+															items="${applicationScope['spitem']}">
+
+															<tr class="VecturyMenu3TR">
+																<td class="VecturyMenu3TR"><a
+																	href="<c:url value="me?sp=${item}" />" target="body">${item}</a></td>
+															</tr>
+														</c:forEach>
+																
 														</tr>
 
 														<tr class="VecturyMenu2TR">
@@ -189,7 +199,7 @@
 									</tbody>
 								</table>
 								<br>
-								<table class="VecturyMenu0TABLE" id="tableIdMenuVectury">
+								<!-- <table class="VecturyMenu0TABLE" id="tableIdMenuVectury">
 									<tbody>
 										<tr class="VecturyMenu0TR" id="trIdMenuVecturyAbout">
 											<td class="VecturyMenu0TD" id="tdIdMenuVecturyAbout"><span
@@ -197,7 +207,7 @@
 											</span></td>
 										</tr>
 									</tbody>
-								</table>
+								</table> -->
 							</div>
 						</td>
 						<td class="VecturyRightTD" id="tdIdVecturyBody"><iframe

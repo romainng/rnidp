@@ -60,6 +60,36 @@ public class MeBean {
 	public void setMyLDAP(LdapConnector myLDAP) {
 		this.myLDAP = myLDAP;
 	}
+	
+	public String getMySpecificLDAPAttr(ServletContext servletC, String[] specificAtt){
+		StringBuilder strb = new StringBuilder();
+		if (this.myLDAPAttributes != null) {
+			for (String att : specificAtt) {
+				List<String> list = this.myLDAPAttributes.get(att);
+
+				strb.append(att);
+				strb.append(" : ");
+				if (list != null) {
+					Iterator<String> iterator = list.iterator();
+					while (iterator.hasNext()) {
+						String next = iterator.next();
+						strb.append(next);
+					}
+				}
+				strb.append(System.lineSeparator());
+			}
+			return strb.toString();
+		} else {
+			if (servletC.getAttribute("lang") != null) {
+				if (servletC.getAttribute("lang").equals("fr"))
+					return "Utilisateur non enregistré dans LDAP! Veulliez contacter un administrateur, merci.";
+			}
+			return "User not registered in LDAP! Please contact an administrator.";
+
+		}
+			
+		
+	}
 
 	public String getMyLDAPAttributes(ServletContext servletC) {
 		StringBuilder strb = new StringBuilder();

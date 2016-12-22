@@ -18,7 +18,7 @@
 			<c:out value="${myUid}"></c:out>
 			<fmt:message key="details.label" />
 		</h2>
-		<c:forEach items="${ myInfo }" var="att" varStatus="status">
+		<c:forEach items="${ mySpecificInfo }" var="att" varStatus="status">
 			<c:out value="${ att }" />
 			<br />
 		</c:forEach>

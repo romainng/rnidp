@@ -126,7 +126,9 @@ a.info:hover span {
 
 #logWindow{
 	height:350px;
-	width:800px;
+	/* width:800px; */
+	 max-width: 100%;
+    width: auto\9;
 	border:1px solid #ccc;
 	font:16px/26px sans-serif;
 	overflow:auto;

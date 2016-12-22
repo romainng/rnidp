@@ -147,13 +147,21 @@ public class ManagementSpServlet extends HttpServlet {
 		String conditionnotonorafter = request.getParameter("conditionnotonorafter");
 		log.debug("USER="+this.userUid+" entry condition not on or after=" + conditionnotonorafter);
 
-		String[] atts = request.getParameterValues("spAttrib");
+		
+		String[] atts = null;
+		if(isModify){
+			atts = request.getParameterValues("spAttribMod");
+			System.out.println("SIZE="+atts.length);
+		}else if(!isModify){
+			atts = request.getParameterValues("spAttrib");
+		}
+		
 		List<String> listAtts = new ArrayList<String>();
 
 		if (atts != null) {
 			StringBuilder strbAtt = new StringBuilder();
 			for (String att : atts) {
-				if (!att.trim().equals("")) {
+				if (!att.trim().equals("") && !listAtts.contains(att)) {
 					listAtts.add(att.trim());
 					strbAtt.append(att.trim());
 					strbAtt.append(" ");

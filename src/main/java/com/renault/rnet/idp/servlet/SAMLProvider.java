@@ -126,7 +126,8 @@ public class SAMLProvider extends HttpServlet {
 		Config.set(session, Config.FMT_LOCALE, locale);
 		response.setLocale(locale);
 
-		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		//TODO get header request.getHeader("X-Vectury-sp");		
+		//doGet(request,response);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -225,27 +226,24 @@ public class SAMLProvider extends HttpServlet {
 				out.print("</BODY></HTML>");
 				out.close();
 
-				// TODO URL TOKEN
-				// StringBuilder strb = new StringBuilder();
-				// strb.append("<HTML><BODY onload=VECTURYFORM.submit();>");
-				// strb.append("<FORM NAME=\"VECTURYFORM\" METHOD=\"POST\"
-				// ACTION=" + serviceProvidersList.getSamlHandlers()
-				// .get(this.parameter.getSp()).getConfirmationDataRecipient() +
-				// ">");
-				// strb.append("<INPUT TYPE=hidden NAME=\"" + SAML_RESPONSE +
-				// "\" VALUE=\""
-				// + EncodedSignedSamlRequestAsString + "\">");
-				// if
-				// (serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate()
-				// != null) {
-				// strb.append("<INPUT TYPE=hidden NAME=\"" + RELAY_STATE + "\"
-				// VALUE=\""
-				// +
-				// serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate()
-				// + "\">");
-				// }
-				// System.out.println();
-				// System.out.println(strb.toString());
+				 //TODO URL TOKEN
+				 StringBuilder strb = new StringBuilder();
+				 strb.append("<HTML><BODY onload=VECTURYFORM.submit();>");
+				 strb.append("<FORM NAME=\"VECTURYFORM\" METHOD=\"POST\" ACTION=" + serviceProvidersList.getSamlHandlers()
+				 .get(this.parameter.getSp()).getConfirmationDataRecipient() +
+				 ">");
+				 strb.append("<INPUT TYPE=hidden NAME=\"" + SAML_RESPONSE +
+				 "\" VALUE=\""
+				 + EncodedSignedSamlRequestAsString + "\">");
+				 if
+				 (serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate()
+				 != null) {
+				 strb.append("<INPUT TYPE=hidden NAME=\"" + RELAY_STATE + "\" VALUE=\"" +
+				 serviceProvidersList.getSamlHandlers().get(this.parameter.getSp()).getRelaystate()
+				 + "\">");
+				 }
+				 System.out.println();
+				 System.out.println(strb.toString());
 
 			} else {
 				log.error("User " + this.parameter.getUid() + " not registered");

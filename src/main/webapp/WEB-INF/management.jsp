@@ -155,7 +155,7 @@
 					key="number.warn.label" /></span><br /> <label for="atts"><fmt:message
 					key="attribute.manage.label" /> :</label> <br />
 
-			<c:import url="attributeslist.jsp" />
+			<c:import url="attributeslist2.jsp" />
 
 
 

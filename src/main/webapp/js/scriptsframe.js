@@ -17,7 +17,7 @@ var rootPath= "rnz_idp";
 var changeLocale = function(language) {
 	
 	$.ajax({
-		url : "/"+rootPath+"/home",
+		url : "/"+rootPath+"/SAMLProvider",
 		method : 'post',
 		data : "language=" + language,
 		success : function(msg) {
@@ -199,14 +199,14 @@ $('#selectModifySp').change(
 					$('#adminsModif').val(response.admins);
 					var attAjax = response.attributes;
 
-					$('input[name="spAttrib"]').each(function() {
+					$('input[name="spAttribMod"]').each(function() {
 						this.checked = false;
 					});
 					if ($(attAjax) != null && $(attAjax).length > 0) {
 						for (var i = 0; i < $(attAjax).length; i++) {
 
 							$(
-									"input[type=checkbox][value="
+									"input[name=spAttribMod][value="
 											+ $(attAjax)[i] + "]").prop(
 									"checked", true);
 						}
