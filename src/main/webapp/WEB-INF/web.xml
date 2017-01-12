@@ -38,7 +38,28 @@
 		<servlet-class>com.renault.rnet.idp.servlet.LogServlet</servlet-class>	
 	</servlet>
 	
+	<servlet>
+		<servlet-name>AuditServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.AuditServlet</servlet-class>	
+	</servlet>
 
+	<servlet>
+		<servlet-name>AuditTriggerServlet</servlet-name>
+		<servlet-class>com.renault.rnet.idp.servlet.AuditTriggerServlet</servlet-class>	
+	</servlet>
+	
+
+
+	<servlet-mapping>
+		<servlet-name>AuditTriggerServlet</servlet-name>
+		<url-pattern>/auditTrigger</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AuditServlet</servlet-name>
+		<url-pattern>/audit</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>SAMLProvider</servlet-name>
 		<url-pattern>/SAMLProvider</url-pattern>
@@ -89,7 +110,15 @@
 	<security-role>
         <role-name>master</role-name>
     </security-role>
-
+    
+    	<security-role>
+        <role-name>user</role-name>
+    </security-role>
+    
+<security-role>
+        <role-name>audit</role-name>
+    </security-role>
+    
 
 <security-constraint>
         <web-resource-collection>
@@ -98,6 +127,17 @@
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>
+            <role-name>master</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>audit page</web-resource-name>
+            <url-pattern>/audit</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>audit</role-name>
             <role-name>master</role-name>
         </auth-constraint>
     </security-constraint>
@@ -124,6 +164,7 @@
 			<role-name>admin</role-name>
 			<role-name>logviewer</role-name>
 			<role-name>master</role-name>
+			<role-name>user</role-name>
 		</auth-constraint>
 </security-constraint>
 

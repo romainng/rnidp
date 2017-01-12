@@ -1,6 +1,7 @@
 package com.renault.rnet.idp.bean;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,21 @@ public class MeBean {
 	public void setMyLDAP(LdapConnector myLDAP) {
 		this.myLDAP = myLDAP;
 	}
+	
+	
+	public Map<String,String> getMySpecificLDAPAttrMap(String[] specificAtt){
+		HashMap<String, String> attributesMap = new HashMap<String,String>();
+		if (this.myLDAPAttributes != null) {
+			for (String att : specificAtt) {
+				
+				attributesMap.put(att, this.myLDAPAttributes.get(att).toString());
+			}
+			
+			return attributesMap;
+		}
+		return null;
+	}
+	
 	
 	public String getMySpecificLDAPAttr(ServletContext servletC, String[] specificAtt){
 		StringBuilder strb = new StringBuilder();

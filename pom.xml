@@ -153,6 +153,12 @@
 </dependency>
 
 
+<dependency>
+ <groupId>com.sun.xml.security</groupId>
+    <artifactId>xml-security-impl</artifactId>
+    <version>1.0</version>
+</dependency>
+
   </dependencies>
   
   

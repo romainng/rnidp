@@ -70,7 +70,7 @@ public class MeServlet extends HttpServlet {
 //		}else{
 //			this.log.error("USER="+this.userUid+" fail to fetch ldap contex in Me servlet");
 //			
-//		}		
+//		}
 //		
 		String spAttr = request.getParameter("sp");
 		if(spAttr!=null && !spAttr.equals("")){
@@ -88,7 +88,6 @@ public class MeServlet extends HttpServlet {
 	}
 	
 	private void getSepcificAttrMe(HttpServletRequest request,String sp){
-		System.out.println("SPECIFIC TEST");
 		servletC = getServletContext();
 		
 		ServiceProvidersList spList = (ServiceProvidersList) servletC.getAttribute("handlers");

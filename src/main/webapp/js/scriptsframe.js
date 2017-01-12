@@ -11,6 +11,22 @@ var sentence="confirmation";
 var rootPath= "rnz_idp";
 // var context = "http://localhost:8080";
 
+
+$(document).ready( function () {
+	  $(".itemslide").hide();    
+	
+	  $(".toggleItem").click( function () {
+		  if($(".itemslide").is(":hidden")){
+			  $(".itemslide").slideDown();
+		  }else{
+			  $(".itemslide").slideUp();
+		  }
+		  
+		  
+	  });
+}
+) ;
+
 /**
  * AJAX dynamic language change
  */
@@ -18,8 +34,8 @@ var changeLocale = function(language) {
 	
 	$.ajax({
 		url : "/"+rootPath+"/SAMLProvider",
-		method : 'post',
-		data : "language=" + language,
+		method : "post",
+		data : {language: language, action: "lang"},
 		success : function(msg) {
 			
 			location.reload();
@@ -34,79 +50,79 @@ $("#formAdd").submit(function(event) {
 
 	// condition before : is numeric?
 	if (!isNum($("#conditionsnotbeforeAdd").val())) {
-		$("#conditionsnotbeforeAddWarn").css('visibility', 'visible');
-		$("#conditionsnotbeforeAdd").css('background-color', WARN_COLOR);
+		$("#conditionsnotbeforeAddWarn").css("visibility", "visible");
+		$("#conditionsnotbeforeAdd").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#conditionsnotbeforeAddWarn").css('visibility', 'hidden');
-		$("#conditionsnotbeforeAdd").css('background-color', 'white');
+		$("#conditionsnotbeforeAddWarn").css("visibility", "hidden");
+		$("#conditionsnotbeforeAdd").css("background-color", "white");
 	}
 
 	// Condition after is numeric?
 	if (!isNum($("#conditionnotonorafterAdd").val())) {
-		$("#conditionnotonorafterAddWarn").css('visibility', 'visible');
-		$("#conditionnotonorafterAdd").css('background-color', WARN_COLOR);
+		$("#conditionnotonorafterAddWarn").css("visibility", "visible");
+		$("#conditionnotonorafterAdd").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#conditionnotonorafterAddWarn").css('visibility', 'hidden');
-		$("#conditionnotonorafterAdd").css('background-color', 'white');
+		$("#conditionnotonorafterAddWarn").css("visibility", "hidden");
+		$("#conditionnotonorafterAdd").css("background-color", "white");
 	}
 
 	// SP name is mandatory & already
 	// exists?
 	if (!mandatory($("#spnameAdd").val())) {
 
-		$("#spnameAddWarn").css('visibility', 'visible');
-		$("#spnameAdd").css('background-color', WARN_COLOR);
+		$("#spnameAddWarn").css("visibility", "visible");
+		$("#spnameAdd").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else if (exist($("#spnameAdd").val())) {
 
-		$("#spnameAddWarnDup").css('visibility', 'visible');
-		$("#spnameAdd").css('background-color', WARN_COLOR);
+		$("#spnameAddWarnDup").css("visibility", "visible");
+		$("#spnameAdd").css("background-color", WARN_COLOR);
 
 		event.preventDefault();
 	} else {
-		$("#spnameAddWarnDup").css('visibility', 'hidden');
-		$("#spnameAddWarn").css('visibility', 'hidden');
-		$("#spnameAdd").css('background-color', 'white');
+		$("#spnameAddWarnDup").css("visibility", "hidden");
+		$("#spnameAddWarn").css("visibility", "hidden");
+		$("#spnameAdd").css("background-color", "white");
 	}
 
 	// Issuer is mandatory
 	if (!mandatory($("#issuerurlAdd").val())) {
-		$("#issuerurlAddWarn").css('visibility', 'visible');
-		$("#issuerurlAdd").css('background-color', WARN_COLOR);
+		$("#issuerurlAddWarn").css("visibility", "visible");
+		$("#issuerurlAdd").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#issuerurlAddWarn").css('visibility', 'hidden');
-		$("#issuerurlAdd").css('background-color', 'white');
+		$("#issuerurlAddWarn").css("visibility", "hidden");
+		$("#issuerurlAdd").css("background-color", "white");
 	}
 
 	// Data recipient is mandatory & is URL
 	// format?
 	if (!isURL($("#datarecipientAdd").val())) {
-		$("#datarecipientWarn").css('visibility', 'visible');
-		$("#datarecipientAdd").css('background-color', WARN_COLOR);
+		$("#datarecipientWarn").css("visibility", "visible");
+		$("#datarecipientAdd").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#datarecipientWarn").css('visibility', 'hidden');
-		$("#datarecipientAdd").css('background-color', 'white');
+		$("#datarecipientWarn").css("visibility", "hidden");
+		$("#datarecipientAdd").css("background-color", "white");
 	}
 	
-	$("#issuerurlAdd").css('background-color', '#e6e6e6');
-	$("#conditionsnotbeforeAdd").css('background-color', '#e6e6e6');
-	$("#conditionnotonorafterAdd").css('background-color', '#e6e6e6');
+	$("#issuerurlAdd").css("background-color", "#e6e6e6");
+	$("#conditionsnotbeforeAdd").css("background-color", "#e6e6e6");
+	$("#conditionnotonorafterAdd").css("background-color", "#e6e6e6");
 	/**
 	 * if
 	 * (!mandatory($("#audienceuriAdd").val())) {
 	 * $("#audienceuriWarn")
-	 * .css('visibility', 'visible');
+	 * .css("visibility", "visible");
 	 * $("#audienceuriAdd")
-	 * .css('background-color', WARN_COLOR);
+	 * .css("background-color", WARN_COLOR);
 	 * event.preventDefault(); } else {
 	 * $("#audienceurWarn")
-	 * .css('visibility', 'hidden');
+	 * .css("visibility", "hidden");
 	 * $("#audienceuriAdd")
-	 * .css('background-color', 'white'); }
+	 * .css("background-color", "white"); }
 	 */
 
 });
@@ -117,62 +133,62 @@ $("#formAdd").submit(function(event) {
 $("#formMod").submit(function(event) {
 
 	if (!isURL($("#datarecipientModif").val())) {
-		$("#datarecipientWarnMod").css('visibility', 'visible');
-		$("#datarecipientModif").css('background-color', WARN_COLOR);
+		$("#datarecipientWarnMod").css("visibility", "visible");
+		$("#datarecipientModif").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#datarecipientWarnMod").css('visibility', 'hidden');
-		$("#datarecipientModif").css('background-color', 'white');
+		$("#datarecipientWarnMod").css("visibility", "hidden");
+		$("#datarecipientModif").css("background-color", "white");
 	}
 
 	if (!mandatory($("#selectModifySp").val())) {
-		$("#selectModifySp").css('background-color', WARN_COLOR);
-		$("#spnameModWarn").css('visibility', 'visible');
+		$("#selectModifySp").css("background-color", WARN_COLOR);
+		$("#spnameModWarn").css("visibility", "visible");
 		event.preventDefault();
 	} else {
-		$("#spnameModWarn").css('visibility', 'hidden');
-		$("#selectModifySp").css('background-color', 'white');
+		$("#spnameModWarn").css("visibility", "hidden");
+		$("#selectModifySp").css("background-color", "white");
 	}
 
 	if (!mandatory($("#issuerurlModif").val())) {
 
-		$("#issuerurlModif").css('background-color', WARN_COLOR);
-		$("#issuerurlModifWarn").css('visibility', 'visible');
+		$("#issuerurlModif").css("background-color", WARN_COLOR);
+		$("#issuerurlModifWarn").css("visibility", "visible");
 		event.preventDefault();
 	} else {
-		$("#issuerurlModifWarn").css('visibility', 'hidden');
-		$("#issuerurlModif").css('background-color', 'white');
+		$("#issuerurlModifWarn").css("visibility", "hidden");
+		$("#issuerurlModif").css("background-color", "white");
 	}
 
 	if (!isNum($("#conditionsnotbeforeMod").val())) {
-		$("#conditionsnotbeforeMod").css('background-color', WARN_COLOR);
-		$("#conditionsnotbeforeModWarn").css('visibility', 'visible');
+		$("#conditionsnotbeforeMod").css("background-color", WARN_COLOR);
+		$("#conditionsnotbeforeModWarn").css("visibility", "visible");
 		event.preventDefault();
 
 	} else {
-		$("#conditionsnotbeforeModWarn").css('visibility', 'hidden');
-		$("#conditionsnotbeforeMod").css('background-color', 'white');
+		$("#conditionsnotbeforeModWarn").css("visibility", "hidden");
+		$("#conditionsnotbeforeMod").css("background-color", "white");
 	}
 
 	if (!isNum($("#conditionnotonorafterMod").val())) {
-		$("#conditionnotonorafterMod").css('background-color', WARN_COLOR);
-		$("#conditionnotonorafterModWarn").css('visibility', 'visible');
+		$("#conditionnotonorafterMod").css("background-color", WARN_COLOR);
+		$("#conditionnotonorafterModWarn").css("visibility", "visible");
 		event.preventDefault();
 	} else {
-		$("#conditionnotonorafterModWarn").css('visibility', 'hidden');
-		$("#conditionnotonorafterMod").css('background-color', 'white');
+		$("#conditionnotonorafterModWarn").css("visibility", "hidden");
+		$("#conditionnotonorafterMod").css("background-color", "white");
 	}
-	$("#issuerurlModif").css('background-color', '#e6e6e6');
-	$("#conditionsnotbeforeMod").css('background-color', '#e6e6e6');
-	$("#conditionnotonorafterMod").css('background-color', '#e6e6e6');
+	$("#issuerurlModif").css("background-color", "#e6e6e6");
+	$("#conditionsnotbeforeMod").css("background-color", "#e6e6e6");
+	$("#conditionnotonorafterMod").css("background-color", "#e6e6e6");
 });
 
 $("#delform").submit(function(event) {
 	if (!mandatory($("#sptodel").val())) {
-		$("#sptodel").css('background-color', WARN_COLOR);
+		$("#sptodel").css("background-color", WARN_COLOR);
 		event.preventDefault();
 	} else {
-		$("#sptodel").css('background-color', 'white');
+		$("#sptodel").css("background-color", "white");
 		if (confirm(sentence)) {
 		} else {
 			event.preventDefault();
@@ -181,25 +197,25 @@ $("#delform").submit(function(event) {
 	}
 });
 
-$('#selectModifySp').change(
+$("#selectModifySp").change(
 		function() {
 
 			$.ajax({
-				url : '/'+rootPath+'/added',
-				method : 'get',
+				url : "/"+rootPath+"/added",
+				method : "get",
 				data : {
 					action : "getVal",
-					spChoosen : $('#selectModifySp').val()
+					spChoosen : $("#selectModifySp").val()
 				},
 				success : function(response) {
-					$('#audienceuriModif').val(response.audience);
-					$('#relaystateModif').val(response.relay);
-					$('#datarecipientModif').val(response.dataRec);
-					$('#profilsModif').val(response.profils);
-					$('#adminsModif').val(response.admins);
+					$("#audienceuriModif").val(response.audience);
+					$("#relaystateModif").val(response.relay);
+					$("#datarecipientModif").val(response.dataRec);
+					$("#profilsModif").val(response.profils);
+					$("#adminsModif").val(response.admins);
 					var attAjax = response.attributes;
 
-					$('input[name="spAttribMod"]').each(function() {
+					$("input[name=spAttribMod]").each(function() {
 						this.checked = false;
 					});
 					if ($(attAjax) != null && $(attAjax).length > 0) {
@@ -247,7 +263,7 @@ function isNum(value) {
 }
 
 function isURL(url) {
-	var regex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
-
+	//var regex = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
+	var regex = /^http:\/\/\w+(\.\w+)*(:[0-9]+)?\/?(\/[.\w]*)*$/
 	return regex.test(url);
 }

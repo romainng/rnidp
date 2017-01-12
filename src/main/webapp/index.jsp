@@ -15,6 +15,7 @@
 <!-- <script type='text/javascript' charset='utf-8' src='js/jquery-1.12.0.js'></script>  -->
 <!-- <script src="https://code.jquery.com/jquery-3.1.1.js"></script> -->
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="js/rolesScript.js"></script>
 <script>
 	/**
 	 * 
@@ -157,29 +158,41 @@
 														</c:forEach>
 
 														<tr class="VecturyMenu2TR">
-															<td><%-- <a class="VecturyMenu2TR" href="/rnz_idp/me"
+															<td class="toggleItem"><%-- <a class="VecturyMenu2TR" href="/rnz_idp/me"
 																target="body"><fmt:message key="me.label" /></a> --%><fmt:message key="me.label" /></td>
+															
 																
 																<c:forEach var="item"
 															items="${applicationScope['spitem']}">
-
+															
+															
 															<tr class="VecturyMenu3TR">
-																<td class="VecturyMenu3TR"><a
-																	href="<c:url value="me?sp=${item}" />" target="body">${item}</a></td>
+			
+																<td class="VecturyMenu3TR itemslide"><a
+																	href="<c:url value="me?sp=${item}" />" target="body">${item}</a>
+																</td>
+																	
 															</tr>
+															
+															
 														</c:forEach>
-																
+														
 														</tr>
 
-														<tr class="VecturyMenu2TR">
+														<tr class="VecturyMenu2TR adminRole">
 															<td><a class="VecturyMenu2TR" href="management"
 																target="body"><fmt:message key="serviceproman.label" />
 															</a></td>
 														</tr>
 
-														<tr class="VecturyMenu2TR">
+														<tr class="VecturyMenu2TR logRole">
 															<td><a class="VecturyMenu2TR" href="/rnz_idp/logapp"
 																target="body">Logs</a></td>
+														</tr>
+														
+														<tr class="VecturyMenu2TR auditRole">
+															<td><a class="VecturyMenu2TR" href="/rnz_idp/audit"
+																target="body">Audit</a></td>
 														</tr>
 														
 														<tr class="VecturyMenu2TR" id="lang">
@@ -189,9 +202,7 @@
 																id="langen" src="img/en.png" height="13" width="18"
 																onclick="changeLocale('en')" /></td>
 														</tr>
-														
-														
-														
+
 													</tbody>
 												</table>
 											</td>
